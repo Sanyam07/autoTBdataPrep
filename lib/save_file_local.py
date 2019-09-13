@@ -8,10 +8,10 @@
 class save_file_local():
     def __init__(self):
         # add variables here
+        self.temp=""
 
 
     def read(self, address="", file_format="csv"):
-        self.s3= s3
 
         return True
 
