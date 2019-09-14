@@ -14,6 +14,12 @@ class ReadFileFromLocal(object):
         self.spark_session = SparkSession(self.spark_context)
 
     def read(self, address="", file_format="csv"):
+        """
+
+        :param address:
+        :param file_format:
+        :return:
+        """
         self.address = address
 
         if file_format == "csv":
@@ -29,6 +35,11 @@ class ReadFileFromLocal(object):
         return self.dataframe
 
     def read_csv(self, path):
+        """
+
+        :param path:
+        :return:
+        """
         try:
             self.dataframe = self.spark_session.read.csv(path, inferSchema=True, header=True)
             return self.dataframe
@@ -36,6 +47,11 @@ class ReadFileFromLocal(object):
             return {"success": False, "message": e}
 
     def read_excel(self, path):
+        """
+
+        :param path:
+        :return:
+        """
         try:
             self.dataframe = self.spark_session.read.csv(path, inferSchema=True, header=True)
             return self.dataframe
@@ -43,6 +59,11 @@ class ReadFileFromLocal(object):
             return {"success": False, "message": e}
 
     def read_parquet(self, path):
+        """
+
+        :param path:
+        :return:
+        """
         try:
             self.dataframe = self.spark_session.read.load(path)
             return self.dataframe

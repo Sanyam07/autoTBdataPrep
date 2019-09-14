@@ -10,6 +10,7 @@ from lib.readfile import *
 
 class DataPrep():
     def __init__(self):
+
         # add variables here
         self.recipe = None
         self.datafame = None
@@ -74,12 +75,25 @@ class DataPrep():
         return self.dataframe_output
 
     def display_recipe(self):
+        """
+
+        :return:
+        """
         return True
 
     def save_recipe(self, address=""):
+        """
+
+        :param address:
+        :return:
+        """
         return True
 
     def read_as_dataframe(self):
+        """
+
+        :return:
+        """
         read = read_file()
         self.dataframe = read.read(address=self.file_address, local=self.local, file_format=self.file_format,
                                    s3=self.s3)
@@ -87,18 +101,48 @@ class DataPrep():
         return True
 
     def save_dataframe(self, address=""):
+        """
+
+        :param address:
+        :return:
+        """
         return True
 
     def get_recipe(self):
+        """
+
+        :return:
+        """
         return self.recipe
 
     def set_recipe(self, recipe=None):
+        """
+
+        :param recipe:
+        :return:
+        """
         self.recipe = recipe
         return True
 
     def prep_again(self, dataframe=None, s3={}, local_address="", file_format="csv", output_address="",
                    output_format="", recipe=None):
+        """
+
+        :param dataframe:
+        :param s3:
+        :param local_address:
+        :param file_format:
+        :param output_address:
+        :param output_format:
+        :param recipe:
+        :return:
+        """
+
         return True
 
     def preprocess(self):
+        """
+
+        :return:
+        """
         return True
