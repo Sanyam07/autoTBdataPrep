@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 
 
 class ReadFileFromLocal(object):
-    def __init__(self):
+    def __init__(self,dataframe,address):
         # add variables here
         self.dataframe = ""
         self.address = ''

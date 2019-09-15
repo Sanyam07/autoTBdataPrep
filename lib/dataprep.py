@@ -3,17 +3,16 @@ import pandas as pd
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 
-
 # imports custom files
 from lib.readfile import *
 
 
-class DataPrep():
+class DataPrep(object):
     def __init__(self):
 
         # add variables here
         self.recipe = None
-        self.datafame = None
+        self.dataframe = None
         self.dataframe_output = None
         self.local = "no"
         self.file_address = ""
@@ -94,7 +93,7 @@ class DataPrep():
 
         :return:
         """
-        read = read_file()
+        read = ReadFile()
         self.dataframe = read.read(address=self.file_address, local=self.local, file_format=self.file_format,
                                    s3=self.s3)
 

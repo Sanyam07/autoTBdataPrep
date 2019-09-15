@@ -1,29 +1,40 @@
-#imports
+# imports
 
 
-
-
-
-
-class save_file_s3():
+class saveFileS3(object):
     def __init__(self):
         # add variables here
-        self.temp=""
-
+        self.temp = ""
 
     def save(self, address="", file_format="csv", s3={}):
-        self.s3= s3
+        """
+
+        :param address:
+        :param file_format:
+        :param s3:
+        :return:
+        """
+        self.s3 = s3
 
         return True
 
     def save_csv(self):
+        """
+
+        :return:
+        """
         return True
 
     def save_excel(self):
+        """
+
+        :return:
+        """
         return True
 
     def save_parquet(self):
+        """
+
+        :return:
+        """
         return True
-
-
-
