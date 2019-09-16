@@ -7,7 +7,8 @@ s = SparkContext.getOrCreate()
 sql = SparkSession(s)
 
 df = sql.read.csv("./run/testing_dup.csv", inferSchema=True, header=True)
-return_df = Duplication().remove_duplicate_ids(df,'duplicate_id')
+print(df.columns)
+return_df = Duplication().remove_duplicate_ids(df,['duplicate_id','random_col','id'])
 
 print(df.show())
 print("#####################")
