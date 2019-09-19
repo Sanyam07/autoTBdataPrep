@@ -25,7 +25,7 @@ sql = SparkSession(s)
 
 df = sql.read.csv("./run/column_rem.csv", inferSchema=True, header=True)
 print(df.columns)
-return_df = Duplication().remove_columns_containing_all_nan_values(df)
+return_df = Duplication().remove_columns_contains_same_value(df)
 return_df.toPandas().to_csv('./run/rem_test.csv')
 print(df.show())
 print("#####################")
