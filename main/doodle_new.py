@@ -23,10 +23,10 @@ s = SparkContext.getOrCreate()
 
 sql = SparkSession(s)
 
-df = sql.read.csv("./run/testing_dup.csv", inferSchema=True, header=True)
+df = sql.read.csv("./run/column_rem.csv", inferSchema=True, header=True)
 print(df.columns)
-return_df = Duplication().remove_duplicate_urls(df,['url'],'www.mltrons.com')
-return_df.toPandas().to_csv('./run/mycsv.csv')
+return_df = Duplication().remove_columns_containing_all_nan_values(df)
+return_df.toPandas().to_csv('./run/rem_test.csv')
 print(df.show())
 print("#####################")
 print("resulted_df")
