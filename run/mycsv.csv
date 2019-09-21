@@ -1,0 +1,8 @@
+,id,duplicate_id,random_col,url,url_new
+0,1, 1#,asd,http://www.mltrons.com/12,www.mltrons.com/12
+1,2,1 #,asdf,https://www.mltrons.com,www.mltrons.com
+2,3," 1@,",sfds,www.mltrons.com,www.mltrons.com
+3,4," 1,_",ff,http://www.mltrons.com/http://www.mltrons.com/index/index,www.mltrons.com/index
+4,5,2,ff,https://www.mltrons.com/the-index,www.mltrons.com/index
+5,6,3,fsdd,www.mltrons.com/the/index,www.mltrons.com/index
+6,7,3,fsdd,"www.mltrons.com/the-index#@##$%?,.",www.mltrons.com/index

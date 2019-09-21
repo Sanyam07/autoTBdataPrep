@@ -3,84 +3,104 @@ from pyspark.sql import SparkSession
 import boto3
 
 
-#imports
+# imports
 
 
-
-
-
-
-class read_file_from_s3():
-    def __init__(self):
+class ReadFileFromS3(object):
+    def __init__(self,address, file_format, s3):
         # add variables here
-        self.s3={}
-        self.dataframe
-
-
+        self.s3 = {}
+        self.dataframe = ''
+        self.address = ''
+        self.spark_context = ''
+        self.hadoop_conf = ''
+        self.spark_session = ''
     def read(self, address="", file_format="csv", s3={}):
-        status, message= self.init_spark_with_s3(s3)
-        if status== False:
-            retun {"success": status, "message":message}
+        """
 
-        self.s3=s3
-        self.address= address
+        :param address:
+        :param file_format:
+        :param s3:
+        :return:
+        """
+        status, message = self.init_spark_with_s3(s3)
+        if status is False:
+            return {"success": status, "message": message}
 
-        if file_format== "csv":
-            self.dataframe= self.read_csv()
-        elif file_format=="excel":
-            self.dataframe= self.read_excel()
-        elif file_format=="parquet":
-            self.dataframe= self.read_parquet()
+        self.s3 = s3
+        self.address = address
+
+        if file_format == "csv":
+            self.dataframe = self.read_csv(address)
+        elif file_format == "excel":
+            self.dataframe = self.read_excel(address)
+        elif file_format == "parquet":
+            self.dataframe = self.read_parquet(address)
         else:
-            print("File format "+file_format+" is currently not supported. Please create a feature request on Github")
+            print(
+                "File format " + file_format + " is currently not supported. Please create a feature request on Github")
 
         return self.dataframe
 
+    def read_csv(self, path):
+        """
 
-
-    def read_csv(self):
+        :param path:
+        :return:
+        """
         try:
-            self.dataframe= self.spark_session.read.csv('s3n://'+self.s3["bucket"]+'/'+ path, inferSchema = True, header = True)
+            self.dataframe = self.spark_session.read.csv('s3n://' + self.s3["bucket"] + '/' + path, inferSchema=True,
+                                                         header=True)
             return self.dataframe
         except Exception as e:
-            return {"success":False,"message":e}
+            return {"success": False, "message": e}
 
-    def read_excel(self):
+    def read_excel(self, path):
+        """
+
+        :param path:
+        :return:
+        """
         try:
-            self.dataframe= self.spark_session.read.csv('s3n://'+self.s3["bucket"]+'/'+ path, inferSchema = True, header = True)
+            self.dataframe = self.spark_session.read.csv('s3n://' + self.s3["bucket"] + '/' + path, inferSchema=True,
+                                                         header=True)
             return self.dataframe
         except Exception as e:
-            return {"success":False,"message":e}
+            return {"success": False, "message": e}
 
-    def read_parquet(self):
+    def read_parquet(self, path):
         try:
-            self.dataframe= self.spark_session.read.load('s3n://'+self.s3["bucket"]+'/'+ path)
+            self.dataframe = self.spark_session.read.load('s3n://' + self.s3["bucket"] + '/' + path)
             return self.dataframe
         except Exception as e:
-            return {"success":False,"message":e}
-
+            return {"success": False, "message": e}
 
     def init_spark_with_s3(self, s3):
+        """
 
-        success= False
-        message=""
+        :param s3:
+        :return:
+        """
 
-        from i in range(10):
+        success = False
+        message = ""
+
+        for i in range(10):
 
             try:
 
-                self.spark_context= SparkContext().getOrCreate()
+                self.spark_context = SparkContext().getOrCreate()
 
-                self.hadoop_conf=self.spark_context._jsc.hadoopConfiguration()
+                self.hadoop_conf = self.spark_context._jsc.hadoopConfiguration()
                 self.hadoop_conf.set("fs.s3n.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
                 self.hadoop_conf.set("fs.s3n.awsAccessKeyId", s3["ID"])
                 self.hadoop_conf.set("fs.s3n.awsSecretAccessKey", s3["key"])
 
-                self.spark_session=  pyspark.sql.SparkSession(self.spark_context)
-                success= True
+                self.spark_session = SparkSession(self.spark_context)
+                success = True
                 continue
-             except Exception as e:
-                message=e
+            except Exception as e:
+                message = e
                 pass
 
         return success, message
