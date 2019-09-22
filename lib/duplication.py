@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 import pyspark.sql.functions as funct
 from nltk.corpus import stopwords
 from pyspark.sql.types import StringType
-
+from lib.logs import logger
 
 class Duplication(object):
 
@@ -100,13 +100,17 @@ class Duplication(object):
         :param df: original dataframe containing data
         :return: return dataframe after removing columns
         """
-        col_counts = df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in df.columns]).collect()[
-            0].asDict()
-        to_drop = [k for k, v in col_counts.items() if v == 1]
+        try :
+            
+            col_counts = df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in df.columns]).collect()[
+                0].asDict()
+            to_drop = [k for k, v in col_counts.items() if v == 1]
 
-        df = df.drop(*to_drop)
+            df = df.drop(*to_drop)
 
-        return df
+            return df
+        except Exception as e:
+            logger.error(e)
 
     def remove_duplicate_address(self, df, column_name):
         pass

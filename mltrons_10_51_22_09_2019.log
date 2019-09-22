@@ -1,0 +1,2 @@
+[09-22 10:52:10] p4512 {D:\Projects\data-science\open source projects\mltrons_auto_clean\lib\duplication.py:113} ERROR - 'DataFrame' object has no attribute 'read_csv'
+[09-22 10:52:10] p4512 {D:/Projects/data-science/open source projects/mltrons_auto_clean/main/doodle_new.py:38} ERROR - 'NoneType' object has no attribute 'toPandas'
