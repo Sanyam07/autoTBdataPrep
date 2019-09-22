@@ -2,6 +2,7 @@ import re
 import datetime
 import pyspark.sql.functions as funct
 from pyspark.sql.types import TimestampType
+from dateutil import parser
 from lib.logs import logger
 
 
@@ -19,7 +20,7 @@ class DatetimeFormatting(object):
             elif re.match(r"^\d{1,2}/", row):
                 dateObj = datetime.datetime.strptime(row, '%m/%d/%Y')
             elif re.match(r"^[a-z]{3}", row, re.IGNORECASE):
-                dateObj = datetime.datetime.strptime(row, '%b %d %Y')                
+                dateObj = datetime.datetime.strptime(row, '%b %d %Y')
             elif re.match(r"^\d{1,2} [a-z]{3}", row, re.IGNORECASE):
                 dateObj = datetime.datetime.strptime(row, '%d %b %Y')
             else:
@@ -30,13 +31,16 @@ class DatetimeFormatting(object):
         except Exception as e:
             logger.error(e)
 
+    def date_formatting_new(self,x):
+        return str(parser.parse(x))
     def udf_date_formatting(self):
-        return funct.udf(lambda row: self.date_formatting(row))
+        return funct.udf(lambda row: self.date_formatting_new(row))
 
     def date_cleaning(self, df, column_name=[]):
         try:
             for i in column_name:
                 df = df.withColumn(i + '_new', self.udf_date_formatting()(funct.col(i).cast("String")))
+
 
             return df
         except Exception as e:
