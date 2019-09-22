@@ -5,6 +5,7 @@ from pyspark.sql import SparkSession
 
 # imports custom files
 from lib.readfile import *
+from lib.logs import logger
 
 
 class DataPrep(object):
@@ -51,27 +52,29 @@ class DataPrep(object):
         """
         convert dataframe into spark dataframe if datarame provided is not none
         """
+        try:
+            if dataframe != None:
+                p = pd.DataFrame()
+                if type(dataframe) == type(p):
+                    # convert dataframe into spark dataframe
+                    self.dataframe = self.spark_session.createDataFrame(dataframe)
+                else:
+                    self.dataframe = dataframe
 
-        if dataframe != None:
-            p = pd.DataFrame()
-            if type(dataframe) == type(p):
-                # convert dataframe into spark dataframe
-                self.dataframe = self.spark_session.createDataFrame(dataframe)
-            else:
-                self.dataframe = dataframe
+            """
+            read the file from local or s3 when dataframe passed is none
+            """
+            if dataframe == None:
+                self.dataframe = self.read_as_dataframe()
 
-        """
-        read the file from local or s3 when dataframe passed is none
-        """
-        if dataframe == None:
-            self.dataframe = self.read_as_dataframe()
+            """
+            time to prepare the recipe
+            """
+            self.dataframe_output = self.preprocess()
 
-        """
-        time to prepare the recipe
-        """
-        self.dataframe_output = self.preprocess()
-
-        return self.dataframe_output
+            return self.dataframe_output
+        except Exception as e:
+            logger.error(e)
 
     def display_recipe(self):
         """
@@ -93,11 +96,13 @@ class DataPrep(object):
 
         :return:
         """
-        read = ReadFile()
-        self.dataframe = read.read(address=self.file_address, local=self.local, file_format=self.file_format,
-                                   s3=self.s3)
-
-        return True
+        try:
+            read = ReadFile()
+            self.dataframe = read.read(address=self.file_address, local=self.local, file_format=self.file_format,
+                                       s3=self.s3)
+            return True
+        except Exception as e:
+            logger.error(e)
 
     def save_dataframe(self, address=""):
         """
