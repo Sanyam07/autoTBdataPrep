@@ -116,5 +116,12 @@ class Duplication(object):
         except Exception as e:
             logger.error(e)
 
+    def date_formatting(self,df):
+        """
+
+        :param df:
+        :return:
+        """
+
     def remove_duplicate_address(self, df, column_name):
         pass

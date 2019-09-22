@@ -1,0 +1,8 @@
+,id,duplicate_id,random_col,url,dates,dates_new
+0,1, 1#,asd,http://www.mltrons.com/12,9/21/1989,1989-09-21 00:00:00
+1,2,1 #,asdf,https://www.mltrons.com,19640430,1964-04-30 00:00:00
+2,3," 1@,",sfds,www.mltrons.com,6/27/1980,1980-06-27 00:00:00
+3,4," 1,_",ff,http://www.mltrons.com/http://www.mltrons.com/index/index,5/11/1987,1987-05-11 00:00:00
+4,5,2,ff,https://www.mltrons.com/the-index,Mar 12 1951,1951-03-12 00:00:00
+5,6,3,fsdd,www.mltrons.com/the/index,2-Aug-15,2-Aug-15
+6,7,3,fsdd,"www.mltrons.com/the-index#@##$%?,.",5/2/1980,1980-05-02 00:00:00
