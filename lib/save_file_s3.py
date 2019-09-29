@@ -1,5 +1,5 @@
 # imports
-
+from lib.logs import logger
 
 class saveFileS3(object):
     def __init__(self):

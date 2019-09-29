@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import pyspark.sql.functions as funct
 from nltk.corpus import stopwords
 from pyspark.sql.types import StringType
+from lib.logs import logger
 
 
 class Duplication(object):
@@ -73,7 +74,7 @@ class Duplication(object):
 
             return df
         except Exception as e:
-            print(e)
+            logger.error(e)
 
     @staticmethod
     def remove_columns_containing_all_nan_values(df, threshold=80):
@@ -83,15 +84,18 @@ class Duplication(object):
         :param threshold: nans threshold from 0-100 as percentage
         :return: return dataframe after removing columns
         """
-        null_counts = \
-            df.select(
-                [funct.count(funct.when(funct.col(col).isNull(), col)).alias(col) for col in df.columns]).collect()[
-                0].asDict()
-        size_df = df.count()
-        to_drop = [k for k, v in null_counts.items() if ((v / size_df) * 100) >= threshold]
+        try:
+            null_counts = \
+                df.select(
+                    [funct.count(funct.when(funct.col(col).isNull(), col)).alias(col) for col in df.columns]).collect()[
+                    0].asDict()
+            size_df = df.count()
+            to_drop = [k for k, v in null_counts.items() if ((v / size_df) * 100) >= threshold]
 
-        df = df.drop(*to_drop)
-        return df
+            df = df.drop(*to_drop)
+            return df
+        except Exception as e:
+            logger.error(e)
 
     @staticmethod
     def remove_columns_contains_same_value(df):
@@ -100,13 +104,24 @@ class Duplication(object):
         :param df: original dataframe containing data
         :return: return dataframe after removing columns
         """
-        col_counts = df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in df.columns]).collect()[
-            0].asDict()
-        to_drop = [k for k, v in col_counts.items() if v == 1]
+        try:
 
-        df = df.drop(*to_drop)
+            col_counts = df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in df.columns]).collect()[
+                0].asDict()
+            to_drop = [k for k, v in col_counts.items() if v == 1]
 
-        return df
+            df = df.drop(*to_drop)
+
+            return df
+        except Exception as e:
+            logger.error(e)
+
+    def date_formatting(self,df):
+        """
+
+        :param df:
+        :return:
+        """
 
     def remove_duplicate_address(self, df, column_name):
         pass

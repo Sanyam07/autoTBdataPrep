@@ -1,7 +1,7 @@
 # imports
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
-
+from lib.logs import logger
 
 class ReadFileFromLocal(object):
     def __init__(self,dataframe,address):
@@ -30,7 +30,7 @@ class ReadFileFromLocal(object):
             self.dataframe = self.read_parquet(address)
         else:
             msg = 'is currently not supported. Please create a feature request on Github'
-            print("File format {} {}".format(file_format, msg))
+            logger.debug("File format {} {}".format(file_format, msg))
 
         return self.dataframe
 
@@ -44,6 +44,7 @@ class ReadFileFromLocal(object):
             self.dataframe = self.spark_session.read.csv(path, inferSchema=True, header=True)
             return self.dataframe
         except Exception as e:
+            logger.error(e)
             return {"success": False, "message": e}
 
     def read_excel(self, path):
@@ -56,6 +57,7 @@ class ReadFileFromLocal(object):
             self.dataframe = self.spark_session.read.csv(path, inferSchema=True, header=True)
             return self.dataframe
         except Exception as e:
+            logger.error(e)
             return {"success": False, "message": e}
 
     def read_parquet(self, path):
@@ -68,4 +70,5 @@ class ReadFileFromLocal(object):
             self.dataframe = self.spark_session.read.load(path)
             return self.dataframe
         except Exception as e:
+            logger.error(e)
             return {"success": False, "message": e}
