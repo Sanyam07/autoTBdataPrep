@@ -65,4 +65,16 @@ def fetching_specific_columns():
     print(df[col_list].show())
 
 
-fetching_specific_columns()
+
+def fetching_datetime_columns():
+    df = sql.read.csv("./run/date_test_res.csv", inferSchema=True, header=True)
+
+    col_list = DatetimeFormatting().fetch_columns_containing_datetime(df)
+    print(col_list)
+    print(df.show())
+    print("#####################")
+    print("resulted_df")
+    print(df[col_list].show())
+
+
+fetching_datetime_columns()
