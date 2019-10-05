@@ -116,12 +116,17 @@ class Duplication(object):
         except Exception as e:
             logger.error(e)
 
-    def date_formatting(self,df):
+    @staticmethod
+    def fetch_columns_containing_url(df):
         """
-
+        Fetch columns list containing urls
         :param df:
         :return:
         """
-
-    def remove_duplicate_address(self, df, column_name):
-        pass
+        try:
+            col_dict = df.select([funct.col(col).rlike(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))').alias(col) for col in
+                                  df.columns]).collect()[0].asDict()
+            col_containig_url = [k for k, v in col_dict.items() if v is True]
+            return col_containig_url
+        except Exception as e:
+            logger.error(e)

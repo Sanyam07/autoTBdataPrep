@@ -20,11 +20,14 @@ from lib.datetime_formatting import *
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 from lib.logs import logger, file_logs
+
 file_logs("mltrons")
 
 s = SparkContext.getOrCreate()
 
 sql = SparkSession(s)
+
+
 def cleaning_test():
     try:
         df = sql.read.csv("./run/column_rem.csv", inferSchema=True, header=True)
@@ -38,11 +41,12 @@ def cleaning_test():
     except Exception as e:
         logger.error(e)
 
+
 def date_cleaning():
     try:
         df = sql.read.csv("./run/testing_dates.csv", inferSchema=True, header=True)
         print(df.columns)
-        return_df = DatetimeFormatting().date_cleaning(df,['dates'])
+        return_df = DatetimeFormatting().date_cleaning(df, ['dates'])
         return_df.toPandas().to_csv('./run/date_test_res.csv')
         print(df.show())
         print("#####################")
@@ -51,5 +55,14 @@ def date_cleaning():
     except Exception as e:
         logger.error(e)
 
+def fetching_specific_columns():
+    df = sql.read.csv("./run/date_test_res.csv", inferSchema=True, header=True)
 
-date_cleaning()
+    col_list = Duplication().fetch_columns_containing_url(df)
+    print(df.show())
+    print("#####################")
+    print("resulted_df")
+    print(df[col_list].show())
+
+
+fetching_specific_columns()
