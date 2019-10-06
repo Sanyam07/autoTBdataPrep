@@ -131,11 +131,11 @@ class Duplication(object):
         except Exception as e:
             logger.error(e)
 
-    def converting_file_into_chunks(self,df,chunk_size):
+    def converting_file_into_chunks(self, df, chunk_size):
         df = df.withColumn("index_col", funct.monotonically_increasing_id())
         for i in range(0, df.count(), chunk_size):
-            chunk = df.where(funct.col('index_col').between(i, i + chunk_size))
+            chunk = df.where((funct.col('index_col') >= i) & (funct.col('index_col') < (i + chunk_size)))
             pd_df = chunk.toPandas()
             ### you can do what ever you want to with the pandas ddataframe
-            print(pd_df)
+            pd_df.to_csv("{}_file.csv".format(i))
             print("############")
