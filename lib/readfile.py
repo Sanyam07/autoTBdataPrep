@@ -9,7 +9,7 @@ class ReadFile(object):
         # add variables here
         self.dataframe = ""
 
-    def read(self, address="", local="no", file_format="csv", s3={}):
+    def read(self, address="", local="yes", file_format="csv", s3={}):
         """
 
         :param address:
@@ -23,7 +23,8 @@ class ReadFile(object):
                 """
                 Time to read the file saved locally
                 """
-                self.dataframe = ReadFileFromLocal(address, file_format)
+                rf = ReadFileFromLocal()
+                self.dataframe= rf.read(address, file_format)
 
             elif s3 != {}:
                 """
