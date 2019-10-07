@@ -16,11 +16,10 @@ import sys
 # sys.exit()
 
 from lib.duplication import *
-from lib.datetime_formatting import *
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 from lib.logs import logger, file_logs
-
+from lib.datetime_formatting import DatetimeFormatting_v2 as DatetimeFormatting
 file_logs("mltrons")
 
 s = SparkContext.getOrCreate()
@@ -84,4 +83,4 @@ def chunk_size():
     Duplication().converting_file_into_chunks(df,100)
 
 
-chunk_size()
+date_cleaning()

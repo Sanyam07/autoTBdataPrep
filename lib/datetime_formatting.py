@@ -56,8 +56,11 @@ class DatetimeFormatting_v2(object):
     
 
     def date_formatting(self, x):
-        return str(parser.parse(x))
-
+        try:
+            return str(parser.parse(x))
+        except Exception as e:
+            logger.error(e)
+            return str(x)
     def udf_date_formatting(self):
         return funct.udf(lambda row: self.date_formatting(row))
 
