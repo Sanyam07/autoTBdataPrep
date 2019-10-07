@@ -17,6 +17,7 @@ class DatetimeFormatting_v2(object):
     def __init__(self):
         pass
 
+
     def run(self,df):
         
         try: 
@@ -54,6 +55,12 @@ class DatetimeFormatting_v2(object):
         return True
     
     
+    
+
+
+class DatetimeFormatting(object):
+    def __init__(self):
+        pass
 
     def date_formatting(self, x):
         return str(parser.parse(x))
@@ -85,3 +92,6 @@ class DatetimeFormatting_v2(object):
 
 
 
+            
+            
+            

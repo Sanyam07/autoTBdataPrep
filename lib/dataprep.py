@@ -8,7 +8,7 @@ from lib.readfile import *
 from lib.logs import logger
 
 
-class DataPrep(object):
+class data_prep(object):
     def __init__(self):
 
         # add variables here

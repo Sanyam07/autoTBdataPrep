@@ -1,11 +1,9 @@
 import re
-import sys
 from urllib.parse import urlparse
 import pyspark.sql.functions as funct
 from nltk.corpus import stopwords
 from pyspark.sql.types import StringType
 from lib.logs import logger
-from pyspark.sql import Window
 
 
 class Duplication(object):
@@ -120,32 +118,12 @@ class Duplication(object):
         except Exception as e:
             logger.error(e)
 
-    @staticmethod
-    def fetch_columns_containing_url(df):
+    def date_formatting(self,df):
         """
-        Fetch columns list containing urls
+
         :param df:
         :return:
         """
-        try:
-            col_dict = df.select([funct.col(col).rlike(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))').alias(col) for col in
-                                  df.columns]).collect()[0].asDict()
-            col_containig_url = [k for k, v in col_dict.items() if v is True]
-            return col_containig_url
-        except Exception as e:
-            logger.error(e)
 
-    def converting_file_into_chunks(self, df, chunk_size):
-        # created window using first column
-        window = Window.orderBy(funct.col(df.columns[0]))
-        df = df.withColumn('row_number', funct.row_number().over(window))
-
-        for i in range(0, df.count(), chunk_size):
-            chunk = df.where((funct.col('row_number') >= i) & (funct.col('row_number') < (i + chunk_size)))
-            print(chunk.count())
-            if chunk.count() != 0:
-                pd_df = chunk.toPandas()
-
-                ### you can do what ever you want to with the pandas ddataframe
-                pd_df.to_csv("{}_file.csv".format(i))
-                print("############")
+    def remove_duplicate_address(self, df, column_name):
+        pass

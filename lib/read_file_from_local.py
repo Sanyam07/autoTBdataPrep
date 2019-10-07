@@ -4,13 +4,13 @@ from pyspark.sql import SparkSession
 from lib.logs import logger
 
 class ReadFileFromLocal(object):
-    def __init__(self,dataframe,address):
+    def __init__(self):
         # add variables here
         self.dataframe = ""
         self.address = ''
 
         # initializing spark
-        self.spark_context = SparkContext().getOrCreate()
+        self.spark_context = SparkContext.getOrCreate()
         self.spark_session = SparkSession(self.spark_context)
 
     def read(self, address="", file_format="csv"):

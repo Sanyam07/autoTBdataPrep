@@ -82,6 +82,6 @@ def fetching_datetime_columns():
 def chunk_size():
     df = sql.read.csv("./run/file1.csv", inferSchema=True, header=True)
     Duplication().converting_file_into_chunks(df,100)
-    
+
 
 chunk_size()
