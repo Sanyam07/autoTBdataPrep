@@ -1,9 +1,11 @@
 import re
+import sys
 from urllib.parse import urlparse
 import pyspark.sql.functions as funct
 from nltk.corpus import stopwords
 from pyspark.sql.types import StringType
 from lib.logs import logger
+from pyspark.sql import Window
 
 
 class Duplication(object):
@@ -132,10 +134,16 @@ class Duplication(object):
             logger.error(e)
 
     def converting_file_into_chunks(self, df, chunk_size):
-        df = df.withColumn("index_col", funct.monotonically_increasing_id())
+        # created window using first column
+        window = Window.orderBy(funct.col(df.columns[0]))
+        df = df.withColumn('row_number', funct.row_number().over(window))
+
         for i in range(0, df.count(), chunk_size):
-            chunk = df.where((funct.col('index_col') >= i) & (funct.col('index_col') < (i + chunk_size)))
-            pd_df = chunk.toPandas()
-            ### you can do what ever you want to with the pandas ddataframe
-            pd_df.to_csv("{}_file.csv".format(i))
-            print("############")
+            chunk = df.where((funct.col('row_number') >= i) & (funct.col('row_number') < (i + chunk_size)))
+            print(chunk.count())
+            if chunk.count() != 0:
+                pd_df = chunk.toPandas()
+
+                ### you can do what ever you want to with the pandas ddataframe
+                pd_df.to_csv("{}_file.csv".format(i))
+                print("############")
