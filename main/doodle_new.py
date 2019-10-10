@@ -20,6 +20,8 @@ from pyspark import SparkContext
 from pyspark.sql import SparkSession
 from lib.logs import logger, file_logs
 from lib.datetime_formatting import DatetimeFormatting_v2 as DatetimeFormatting
+from lib.handle_skewness import HandleSkewness as Skewness
+
 file_logs("mltrons")
 
 s = SparkContext.getOrCreate()
@@ -54,6 +56,7 @@ def date_cleaning():
     except Exception as e:
         logger.error(e)
 
+
 def fetching_specific_columns():
     df = sql.read.csv("./run/date_test_res.csv", inferSchema=True, header=True)
 
@@ -62,7 +65,6 @@ def fetching_specific_columns():
     print("#####################")
     print("resulted_df")
     print(df[col_list].show())
-
 
 
 def fetching_datetime_columns():
@@ -76,11 +78,14 @@ def fetching_datetime_columns():
     print(df[col_list].show())
 
 
-
-
 def chunk_size():
     df = sql.read.csv("./run/file1.csv", inferSchema=True, header=True)
-    Duplication().converting_file_into_chunks(df,100)
+    Duplication().converting_file_into_chunks(df, 100)
 
 
-date_cleaning()
+def skewness():
+    df = sql.read.csv("./run/file1.csv", inferSchema=True, header=True)
+    Skewness().remove_skewness(df, ['Purpose'])
+
+
+skewness()
