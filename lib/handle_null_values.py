@@ -51,7 +51,12 @@ class handle_null_values(object):
 
         dropped_columns = []
 
-        describe_dataframe= dataframe.select([count(when(col(c).isNull() | col(c).contains("NULL") | col(c).contains("null") | col(c).contains("None") | col(c).contains("NONE") | col(c).contains("none"), c)).alias(c) for c in dataframe.columns]).toPandas()
+        describe_dataframe= dataframe.select([count(when(col(c).isNull() |
+                                                         col(c).contains("NULL") |
+                                                         col(c).contains("null")
+                                                         | col(c).contains("None") |
+                                                         col(c).contains("NONE") |
+                                                         col(c).contains("none"), c)).alias(c) for c in dataframe.columns]).toPandas()
 
         for c in all_columns:
             missing_values= int(describe_dataframe[c][0])

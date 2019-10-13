@@ -26,6 +26,7 @@ file_logs("mltrons")
 
 s = SparkContext.getOrCreate()
 
+
 sql = SparkSession(s)
 
 
@@ -35,6 +36,22 @@ def cleaning_test():
 
         return_df = Duplication().remove_columns_contains_same_value(df)
         return_df.toPandas().to_csv('./run/rem_test.csv')
+        print(df.show())
+        print("#####################")
+        print("resulted_df")
+        print(return_df.show())
+    except Exception as e:
+        logger.error(e)
+
+
+def remove_cols_containing_nan():
+    try:
+
+        logger.debug("this is debug")
+        df = sql.read.csv("./run/rem_test.csv", inferSchema=True, header=True)
+
+        return_df = Duplication().remove_columns_containing_all_nan_values(df)
+        return_df.toPandas().to_csv('./run/rem_test_result.csv')
         print(df.show())
         print("#####################")
         print("resulted_df")
@@ -88,4 +105,4 @@ def skewness():
     Skewness().remove_skewness(df, ['Purpose'])
 
 
-skewness()
+remove_cols_containing_nan()
