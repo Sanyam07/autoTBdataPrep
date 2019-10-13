@@ -22,6 +22,7 @@ class DatetimeFormatting_v2(object):
         
         try: 
             time_variables= self.find_time_variables(df)
+            print(time_variables)
             for v in time_variables:
                 df= self.string_to_timestamp(df, v)
                 self.update_metadata(v)

@@ -21,3 +21,8 @@ venv.bak/
 *.log
 
 *.csv
+
+imputed_modlels/*
+imputed_modlels
+
+#.parquet

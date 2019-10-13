@@ -17,10 +17,11 @@ class DatetimeFormatting_v2(object):
     def __init__(self):
         pass
 
-    def run(self, df):
-
-        try:
-            time_variables = self.find_time_variables(df)
+    def run(self,df):
+        
+        try: 
+            time_variables= self.find_time_variables(df)
+            print(time_variables)
             for v in time_variables:
                 df = self.string_to_timestamp(df, v)
                 self.update_metadata(v)
