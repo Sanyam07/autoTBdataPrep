@@ -58,7 +58,7 @@ class handle_null_values(object):
     def delete_var_with_null_more_than(self, dataframe=None, percentage=30):
         """numeric variables"""
         
-        is dataframe ==None:
+        if dataframe == None:
             dataframe= self.df
             
         total_rows= dataframe.count()
@@ -153,8 +153,7 @@ class handle_null_values(object):
    
 
     def delete_extra_categorical_variables(self, df=None, variables=None):
-        if df==None:
-            df= self.df
+        self.df= df
         
         if variables==None:
             varaibles= self.categorical_variables
@@ -171,7 +170,7 @@ class handle_null_values(object):
         
         self.df=df
 
-        return True
+        return self.df
 
     
     def delete_extra_numerical_variables(self, df=None, variables=None):
@@ -193,7 +192,7 @@ class handle_null_values(object):
         
         self.df=df
 
-        return True
+        return self.df
     
     
     
