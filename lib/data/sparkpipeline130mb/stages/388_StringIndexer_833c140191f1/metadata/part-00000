@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272856447,"sparkVersion":"2.4.4","uid":"StringIndexer_833c140191f1","paramMap":{"outputCol":"expansion_areaIndex","handleInvalid":"keep","inputCol":"expansion_area"},"defaultParamMap":{"outputCol":"StringIndexer_833c140191f1__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

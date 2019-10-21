@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272870473,"sparkVersion":"2.4.4","uid":"StringIndexer_6d397c7b1d45","paramMap":{"handleInvalid":"keep","outputCol":"number_access_stairsIndex","inputCol":"number_access_stairs"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_6d397c7b1d45__output"}}

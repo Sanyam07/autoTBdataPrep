@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272822648,"sparkVersion":"2.4.4","uid":"StringIndexer_da392cb3c0fa","paramMap":{"handleInvalid":"keep","outputCol":"tax_yearIndex","inputCol":"tax_year"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_da392cb3c0fa__output","stringOrderType":"frequencyDesc"}}

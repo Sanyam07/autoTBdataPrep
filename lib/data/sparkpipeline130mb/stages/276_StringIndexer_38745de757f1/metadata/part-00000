@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272843776,"sparkVersion":"2.4.4","uid":"StringIndexer_38745de757f1","paramMap":{"inputCol":"real_estate_value","outputCol":"real_estate_valueIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_38745de757f1__output"}}

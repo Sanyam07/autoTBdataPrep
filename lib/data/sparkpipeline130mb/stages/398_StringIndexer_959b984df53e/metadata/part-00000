@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272857457,"sparkVersion":"2.4.4","uid":"StringIndexer_959b984df53e","paramMap":{"handleInvalid":"keep","inputCol":"franchise","outputCol":"franchiseIndex"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_959b984df53e__output"}}

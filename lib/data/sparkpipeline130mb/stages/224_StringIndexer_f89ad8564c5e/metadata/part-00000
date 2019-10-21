@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272837112,"sparkVersion":"2.4.4","uid":"StringIndexer_f89ad8564c5e","paramMap":{"handleInvalid":"keep","outputCol":"colisting_cellphoneIndex","inputCol":"colisting_cellphone"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_f89ad8564c5e__output","stringOrderType":"frequencyDesc"}}

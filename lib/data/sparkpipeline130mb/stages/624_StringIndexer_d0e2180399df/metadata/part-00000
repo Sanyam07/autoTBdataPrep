@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272880501,"sparkVersion":"2.4.4","uid":"StringIndexer_d0e2180399df","paramMap":{"inputCol":"living_room_location","outputCol":"living_room_locationIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_d0e2180399df__output","handleInvalid":"error"}}

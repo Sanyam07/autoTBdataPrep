@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272852115,"sparkVersion":"2.4.4","uid":"StringIndexer_236a9108005d","paramMap":{"inputCol":"barn_type","handleInvalid":"keep","outputCol":"barn_typeIndex"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_236a9108005d__output","stringOrderType":"frequencyDesc"}}

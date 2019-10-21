@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272892400,"sparkVersion":"2.4.4","uid":"StringIndexer_ca7149a9817c","paramMap":{"outputCol":"removed_dateIndex","inputCol":"removed_date","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_ca7149a9817c__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272868082,"sparkVersion":"2.4.4","uid":"StringIndexer_049c3d19b941","paramMap":{"outputCol":"signageIndex","inputCol":"signage","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_049c3d19b941__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

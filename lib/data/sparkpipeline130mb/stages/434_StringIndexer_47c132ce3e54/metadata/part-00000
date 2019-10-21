@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272861217,"sparkVersion":"2.4.4","uid":"StringIndexer_47c132ce3e54","paramMap":{"outputCol":"leased_equipment_leqIndex","inputCol":"leased_equipment_leq","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_47c132ce3e54__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

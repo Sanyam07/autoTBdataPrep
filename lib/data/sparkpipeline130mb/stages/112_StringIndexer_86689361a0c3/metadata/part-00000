@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272824996,"sparkVersion":"2.4.4","uid":"StringIndexer_86689361a0c3","paramMap":{"inputCol":"water_heater_location","handleInvalid":"keep","outputCol":"water_heater_locationIndex"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_86689361a0c3__output"}}

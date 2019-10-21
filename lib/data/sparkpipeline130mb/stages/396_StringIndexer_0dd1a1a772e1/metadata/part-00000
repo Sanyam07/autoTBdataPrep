@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272857266,"sparkVersion":"2.4.4","uid":"StringIndexer_0dd1a1a772e1","paramMap":{"outputCol":"financingIndex","handleInvalid":"keep","inputCol":"financing"},"defaultParamMap":{"outputCol":"StringIndexer_0dd1a1a772e1__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

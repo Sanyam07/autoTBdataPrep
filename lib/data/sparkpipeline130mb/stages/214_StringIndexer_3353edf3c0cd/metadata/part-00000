@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272836080,"sparkVersion":"2.4.4","uid":"StringIndexer_3353edf3c0cd","paramMap":{"outputCol":"vacancy_rateIndex","handleInvalid":"keep","inputCol":"vacancy_rate"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_3353edf3c0cd__output","handleInvalid":"error"}}

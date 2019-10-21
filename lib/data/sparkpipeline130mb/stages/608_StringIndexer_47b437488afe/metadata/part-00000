@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272878887,"sparkVersion":"2.4.4","uid":"StringIndexer_47b437488afe","paramMap":{"outputCol":"fireplaces_mainIndex","inputCol":"fireplaces_main","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_47b437488afe__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

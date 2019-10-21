@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272826880,"sparkVersion":"2.4.4","uid":"StringIndexer_77f47770eb2b","paramMap":{"outputCol":"topographyIndex","handleInvalid":"keep","inputCol":"topography"},"defaultParamMap":{"outputCol":"StringIndexer_77f47770eb2b__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

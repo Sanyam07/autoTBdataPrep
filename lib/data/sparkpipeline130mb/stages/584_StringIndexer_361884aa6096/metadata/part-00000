@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272876485,"sparkVersion":"2.4.4","uid":"StringIndexer_361884aa6096","paramMap":{"outputCol":"bonus_room_locationIndex","handleInvalid":"keep","inputCol":"bonus_room_location"},"defaultParamMap":{"outputCol":"StringIndexer_361884aa6096__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

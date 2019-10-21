@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272876085,"sparkVersion":"2.4.4","uid":"StringIndexer_ef75dacdf65f","paramMap":{"inputCol":"bedrooms_upper","outputCol":"bedrooms_upperIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_ef75dacdf65f__output","handleInvalid":"error"}}

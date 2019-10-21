@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272827091,"sparkVersion":"2.4.4","uid":"StringIndexer_490cd5250f18","paramMap":{"outputCol":"manufacturerIndex","inputCol":"manufacturer","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_490cd5250f18__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

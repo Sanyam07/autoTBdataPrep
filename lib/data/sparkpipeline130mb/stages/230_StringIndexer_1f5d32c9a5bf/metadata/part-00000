@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272837720,"sparkVersion":"2.4.4","uid":"StringIndexer_1f5d32c9a5bf","paramMap":{"outputCol":"coselling_office_nameIndex","handleInvalid":"keep","inputCol":"coselling_office_name"},"defaultParamMap":{"outputCol":"StringIndexer_1f5d32c9a5bf__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

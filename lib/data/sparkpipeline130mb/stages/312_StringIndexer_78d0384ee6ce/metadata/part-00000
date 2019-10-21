@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272847710,"sparkVersion":"2.4.4","uid":"StringIndexer_78d0384ee6ce","paramMap":{"inputCol":"land_assessed_value","outputCol":"land_assessed_valueIndex","handleInvalid":"keep"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_78d0384ee6ce__output","stringOrderType":"frequencyDesc"}}

@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272844668,"sparkVersion":"2.4.4","uid":"StringIndexer_4a64a391edf5","paramMap":{"inputCol":"section_township","outputCol":"section_townshipIndex","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_4a64a391edf5__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

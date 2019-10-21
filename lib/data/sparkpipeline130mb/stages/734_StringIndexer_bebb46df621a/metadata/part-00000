@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272892018,"sparkVersion":"2.4.4","uid":"StringIndexer_bebb46df621a","paramMap":{"inputCol":"available_date","handleInvalid":"keep","outputCol":"available_dateIndex"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_bebb46df621a__output","stringOrderType":"frequencyDesc"}}

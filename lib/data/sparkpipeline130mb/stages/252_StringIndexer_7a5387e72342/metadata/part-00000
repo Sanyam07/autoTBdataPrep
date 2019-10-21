@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272840145,"sparkVersion":"2.4.4","uid":"StringIndexer_7a5387e72342","paramMap":{"outputCol":"ef_year_builtIndex","inputCol":"ef_year_built","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_7a5387e72342__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

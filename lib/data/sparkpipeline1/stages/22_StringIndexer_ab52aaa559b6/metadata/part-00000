@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571266159353,"sparkVersion":"2.4.4","uid":"StringIndexer_ab52aaa559b6","paramMap":{"outputCol":"garage_imputedIndex","inputCol":"garage_imputed","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_ab52aaa559b6__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

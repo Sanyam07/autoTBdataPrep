@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272863441,"sparkVersion":"2.4.4","uid":"StringIndexer_f7ea997d673e","paramMap":{"outputCol":"number_carport_spacesIndex","inputCol":"number_carport_spaces","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_f7ea997d673e__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

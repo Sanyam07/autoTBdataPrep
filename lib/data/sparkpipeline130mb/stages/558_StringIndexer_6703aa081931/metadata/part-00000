@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272873759,"sparkVersion":"2.4.4","uid":"StringIndexer_6703aa081931","paramMap":{"inputCol":"selling_office_number","outputCol":"selling_office_numberIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_6703aa081931__output","handleInvalid":"error"}}

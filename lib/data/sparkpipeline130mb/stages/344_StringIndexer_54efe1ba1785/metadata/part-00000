@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272851261,"sparkVersion":"2.4.4","uid":"StringIndexer_54efe1ba1785","paramMap":{"outputCol":"boundary_surveyIndex","inputCol":"boundary_survey","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_54efe1ba1785__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

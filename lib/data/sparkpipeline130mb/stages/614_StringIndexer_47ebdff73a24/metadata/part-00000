@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272879483,"sparkVersion":"2.4.4","uid":"StringIndexer_47ebdff73a24","paramMap":{"outputCol":"half_baths_lowerIndex","inputCol":"half_baths_lower","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_47ebdff73a24__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

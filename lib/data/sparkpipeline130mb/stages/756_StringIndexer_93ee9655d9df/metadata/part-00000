@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272894226,"sparkVersion":"2.4.4","uid":"StringIndexer_93ee9655d9df","paramMap":{"inputCol":"fetched_for_cma","outputCol":"fetched_for_cmaIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_93ee9655d9df__output","handleInvalid":"error"}}

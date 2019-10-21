@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272817622,"sparkVersion":"2.4.4","uid":"StringIndexer_382b19cde8a0","paramMap":{"handleInvalid":"keep","inputCol":"annual_taxes","outputCol":"annual_taxesIndex"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_382b19cde8a0__output"}}

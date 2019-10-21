@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272821588,"sparkVersion":"2.4.4","uid":"StringIndexer_e1b3042c29e7","paramMap":{"outputCol":"parcel_numberIndex","inputCol":"parcel_number","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_e1b3042c29e7__output","handleInvalid":"error"}}

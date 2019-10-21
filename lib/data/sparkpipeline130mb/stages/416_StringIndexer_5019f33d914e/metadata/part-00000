@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272859352,"sparkVersion":"2.4.4","uid":"StringIndexer_5019f33d914e","paramMap":{"handleInvalid":"keep","outputCol":"heating_expensesIndex","inputCol":"heating_expenses"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_5019f33d914e__output"}}
