@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272854553,"sparkVersion":"2.4.4","uid":"StringIndexer_575ed13914bb","paramMap":{"outputCol":"electricityIndex","inputCol":"electricity","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_575ed13914bb__output","handleInvalid":"error"}}

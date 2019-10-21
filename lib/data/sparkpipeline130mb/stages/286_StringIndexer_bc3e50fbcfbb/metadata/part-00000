@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272844899,"sparkVersion":"2.4.4","uid":"StringIndexer_bc3e50fbcfbb","paramMap":{"handleInvalid":"keep","outputCol":"septic_systemIndex","inputCol":"septic_system"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_bc3e50fbcfbb__output"}}

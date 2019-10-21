@@ -36,9 +36,9 @@ class handle_null_values(object):
             
             self.update_metadata(v)
                 
-            df= self.train_model_for_numerical_variables()
-            df= self.impute_numerical_variables()
-            del_variables= self.delete_extra_numerical_variables()
+#             df= self.train_model_for_numerical_variables()
+#             df= self.impute_numerical_variables()
+#             del_variables= self.delete_extra_numerical_variables()
             
             
             return df

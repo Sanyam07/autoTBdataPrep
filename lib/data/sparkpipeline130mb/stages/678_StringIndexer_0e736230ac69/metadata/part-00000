@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272886459,"sparkVersion":"2.4.4","uid":"StringIndexer_0e736230ac69","paramMap":{"inputCol":"nwesh_certification","outputCol":"nwesh_certificationIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_0e736230ac69__output","handleInvalid":"error"}}

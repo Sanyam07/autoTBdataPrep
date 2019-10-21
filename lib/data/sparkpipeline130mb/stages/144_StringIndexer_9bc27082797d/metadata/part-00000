@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272828688,"sparkVersion":"2.4.4","uid":"StringIndexer_9bc27082797d","paramMap":{"inputCol":"school_district","handleInvalid":"keep","outputCol":"school_districtIndex"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_9bc27082797d__output"}}

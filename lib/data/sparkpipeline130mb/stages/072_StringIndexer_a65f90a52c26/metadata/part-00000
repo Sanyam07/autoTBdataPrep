@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272819077,"sparkVersion":"2.4.4","uid":"StringIndexer_a65f90a52c26","paramMap":{"outputCol":"cdomIndex","handleInvalid":"keep","inputCol":"cdom"},"defaultParamMap":{"outputCol":"StringIndexer_a65f90a52c26__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272853498,"sparkVersion":"2.4.4","uid":"StringIndexer_960a1e76eeb3","paramMap":{"outputCol":"crop_incomeIndex","handleInvalid":"keep","inputCol":"crop_income"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_960a1e76eeb3__output","stringOrderType":"frequencyDesc"}}

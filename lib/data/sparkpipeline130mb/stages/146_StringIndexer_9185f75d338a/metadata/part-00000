@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272828912,"sparkVersion":"2.4.4","uid":"StringIndexer_9185f75d338a","paramMap":{"outputCol":"sewer_companyIndex","handleInvalid":"keep","inputCol":"sewer_company"},"defaultParamMap":{"outputCol":"StringIndexer_9185f75d338a__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

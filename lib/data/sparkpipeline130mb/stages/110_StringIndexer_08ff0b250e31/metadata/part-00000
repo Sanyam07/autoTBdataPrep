@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272824749,"sparkVersion":"2.4.4","uid":"StringIndexer_08ff0b250e31","paramMap":{"inputCol":"waterfront_footage","handleInvalid":"keep","outputCol":"waterfront_footageIndex"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_08ff0b250e31__output"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272887610,"sparkVersion":"2.4.4","uid":"StringIndexer_ca34dcc7967d","paramMap":{"outputCol":"acreage_commentsIndex","handleInvalid":"keep","inputCol":"acreage_comments"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_ca34dcc7967d__output","stringOrderType":"frequencyDesc"}}

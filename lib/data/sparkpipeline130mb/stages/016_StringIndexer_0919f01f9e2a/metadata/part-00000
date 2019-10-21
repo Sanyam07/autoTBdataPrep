@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272810792,"sparkVersion":"2.4.4","uid":"StringIndexer_0919f01f9e2a","paramMap":{"outputCol":"zip_codeIndex","handleInvalid":"keep","inputCol":"zip_code"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_0919f01f9e2a__output"}}

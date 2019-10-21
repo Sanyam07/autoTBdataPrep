@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272887812,"sparkVersion":"2.4.4","uid":"StringIndexer_15e26554ddc5","paramMap":{"outputCol":"amenitiesIndex","inputCol":"amenities","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_15e26554ddc5__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

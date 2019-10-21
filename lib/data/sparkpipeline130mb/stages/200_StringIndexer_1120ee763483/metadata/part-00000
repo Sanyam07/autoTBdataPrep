@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272834626,"sparkVersion":"2.4.4","uid":"StringIndexer_1120ee763483","paramMap":{"handleInvalid":"keep","outputCol":"net_operating_incomeIndex","inputCol":"net_operating_income"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_1120ee763483__output","stringOrderType":"frequencyDesc"}}

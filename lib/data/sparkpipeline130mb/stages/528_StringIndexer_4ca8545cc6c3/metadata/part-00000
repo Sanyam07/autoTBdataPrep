@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272870668,"sparkVersion":"2.4.4","uid":"StringIndexer_4ca8545cc6c3","paramMap":{"inputCol":"till_acres","handleInvalid":"keep","outputCol":"till_acresIndex"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_4ca8545cc6c3__output"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272808372,"sparkVersion":"2.4.4","uid":"StringIndexer_230b29671b98","paramMap":{"handleInvalid":"keep","inputCol":"mls_updated_date","outputCol":"mls_updated_dateIndex"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_230b29671b98__output","stringOrderType":"frequencyDesc"}}

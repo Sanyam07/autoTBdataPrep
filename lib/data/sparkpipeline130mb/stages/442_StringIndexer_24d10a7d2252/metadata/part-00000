@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272862060,"sparkVersion":"2.4.4","uid":"StringIndexer_24d10a7d2252","paramMap":{"outputCol":"liens_mortgagesIndex","handleInvalid":"keep","inputCol":"liens_mortgages"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_24d10a7d2252__output","handleInvalid":"error"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272843361,"sparkVersion":"2.4.4","uid":"StringIndexer_8bd16842eb7a","paramMap":{"inputCol":"other_expenses","outputCol":"other_expensesIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_8bd16842eb7a__output","handleInvalid":"error"}}

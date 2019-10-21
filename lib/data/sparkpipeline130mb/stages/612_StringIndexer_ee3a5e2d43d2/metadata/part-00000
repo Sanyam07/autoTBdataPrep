@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272879282,"sparkVersion":"2.4.4","uid":"StringIndexer_ee3a5e2d43d2","paramMap":{"outputCol":"half_baths_garageIndex","inputCol":"half_baths_garage","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_ee3a5e2d43d2__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

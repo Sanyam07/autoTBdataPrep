@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272835436,"sparkVersion":"2.4.4","uid":"StringIndexer_c469e665fe32","paramMap":{"handleInvalid":"keep","inputCol":"insurance_expenses","outputCol":"insurance_expensesIndex"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_c469e665fe32__output"}}

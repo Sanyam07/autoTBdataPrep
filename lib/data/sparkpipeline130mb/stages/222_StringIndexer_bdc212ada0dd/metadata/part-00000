@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272836916,"sparkVersion":"2.4.4","uid":"StringIndexer_bdc212ada0dd","paramMap":{"inputCol":"colisting_agent_name","outputCol":"colisting_agent_nameIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_bdc212ada0dd__output","handleInvalid":"error"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272848354,"sparkVersion":"2.4.4","uid":"StringIndexer_e91a461d8da7","paramMap":{"outputCol":"zoning_remarksIndex","inputCol":"zoning_remarks","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_e91a461d8da7__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

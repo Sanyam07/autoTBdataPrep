@@ -24,5 +24,7 @@ venv.bak/
 
 imputed_modlels/*
 imputed_modlels
+old/*
+data/*
 
 #.parquet

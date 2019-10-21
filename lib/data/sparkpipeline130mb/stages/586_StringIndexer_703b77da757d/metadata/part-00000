@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272876675,"sparkVersion":"2.4.4","uid":"StringIndexer_703b77da757d","paramMap":{"inputCol":"den_or_office","outputCol":"den_or_officeIndex","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_703b77da757d__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

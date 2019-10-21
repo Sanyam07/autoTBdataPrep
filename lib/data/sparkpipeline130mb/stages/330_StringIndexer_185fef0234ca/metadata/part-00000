@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272849745,"sparkVersion":"2.4.4","uid":"StringIndexer_185fef0234ca","paramMap":{"handleInvalid":"keep","inputCol":"power_service_amps","outputCol":"power_service_ampsIndex"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_185fef0234ca__output"}}

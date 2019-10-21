@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272830297,"sparkVersion":"2.4.4","uid":"StringIndexer_4e65c6fdd8bc","paramMap":{"outputCol":"zoning_jurisdictionIndex","inputCol":"zoning_jurisdiction","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_4e65c6fdd8bc__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

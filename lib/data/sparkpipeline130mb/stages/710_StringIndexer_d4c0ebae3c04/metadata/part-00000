@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272889626,"sparkVersion":"2.4.4","uid":"StringIndexer_d4c0ebae3c04","paramMap":{"inputCol":"livestock_comments","outputCol":"livestock_commentsIndex","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_d4c0ebae3c04__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

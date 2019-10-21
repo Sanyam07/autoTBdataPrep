@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272865069,"sparkVersion":"2.4.4","uid":"StringIndexer_ae3c24fca43c","paramMap":{"handleInvalid":"keep","outputCol":"park_approval_saleIndex","inputCol":"park_approval_sale"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_ae3c24fca43c__output"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272850854,"sparkVersion":"2.4.4","uid":"StringIndexer_4e31cca036a3","paramMap":{"outputCol":"assessment_feesIndex","handleInvalid":"keep","inputCol":"assessment_fees"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_4e31cca036a3__output","handleInvalid":"error"}}

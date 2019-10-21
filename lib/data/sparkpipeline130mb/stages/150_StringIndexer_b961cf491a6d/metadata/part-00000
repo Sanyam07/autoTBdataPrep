@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272829358,"sparkVersion":"2.4.4","uid":"StringIndexer_b961cf491a6d","paramMap":{"outputCol":"community_nameIndex","inputCol":"community_name","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_b961cf491a6d__output","handleInvalid":"error"}}

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272871868,"sparkVersion":"2.4.4","uid":"StringIndexer_94757e92b2aa","paramMap":{"handleInvalid":"keep","inputCol":"window_covering","outputCol":"window_coveringIndex"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_94757e92b2aa__output"}}

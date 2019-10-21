@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272858721,"sparkVersion":"2.4.4","uid":"StringIndexer_51885aac380d","paramMap":{"outputCol":"number_garage_spacesIndex","handleInvalid":"keep","inputCol":"number_garage_spaces"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_51885aac380d__output","stringOrderType":"frequencyDesc"}}

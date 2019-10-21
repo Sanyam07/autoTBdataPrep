@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571266160057,"sparkVersion":"2.4.4","uid":"StringIndexer_d7e13030865d","paramMap":{"inputCol":"roof_imputed","handleInvalid":"keep","outputCol":"roof_imputedIndex"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"StringIndexer_d7e13030865d__output"}}

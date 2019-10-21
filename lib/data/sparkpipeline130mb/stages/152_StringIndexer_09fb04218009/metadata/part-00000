@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272829587,"sparkVersion":"2.4.4","uid":"StringIndexer_09fb04218009","paramMap":{"inputCol":"selling_agent_number","outputCol":"selling_agent_numberIndex","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"StringIndexer_09fb04218009__output"}}

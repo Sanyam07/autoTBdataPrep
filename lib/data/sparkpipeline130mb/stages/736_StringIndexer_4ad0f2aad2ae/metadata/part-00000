@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1571272892209,"sparkVersion":"2.4.4","uid":"StringIndexer_4ad0f2aad2ae","paramMap":{"inputCol":"created_date","outputCol":"created_dateIndex","handleInvalid":"keep"},"defaultParamMap":{"outputCol":"StringIndexer_4ad0f2aad2ae__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}
