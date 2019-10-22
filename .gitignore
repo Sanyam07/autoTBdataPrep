@@ -14,14 +14,14 @@ ENV/
 env.bak/
 venv.bak/
 
-
-
 .idea/
 
 *.log
 
 *.csv
 
+lib/imputed_models/*
+lib/data/*
 imputed_modlels/*
 imputed_modlels
 
