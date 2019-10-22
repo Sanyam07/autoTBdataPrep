@@ -14,11 +14,10 @@ ENV/
 env.bak/
 venv.bak/
 
-<<<<<<< HEAD
-=======
+
 lib/data/*
 
->>>>>>> master
+
 .idea/
 
 *.log
