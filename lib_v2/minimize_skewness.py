@@ -7,13 +7,12 @@ from pyspark.sql.types import FloatType
 
 
 class MinimizeSkewness(Transformer):
-    def __init__(self, columns, threshold=0.7):
+    def __init__(self, threshold=0.7):
         super(MinimizeSkewness, self).__init__()
         self.threshold = threshold
-        self.columns = columns
 
     @staticmethod
-    def handle_neg_values(df):
+    def handle_neg_values(df,column_name):
         """
         Minimum value of columns is fetched
         zero/negative values are handled to remove skewness
@@ -21,10 +20,10 @@ class MinimizeSkewness(Transformer):
         :return: updated column to remove skewness
         """
         try:
-            min_value = df.agg({df.columns[0]: "min"}).collect()[0][0]
+            min_value = df.agg({column_name: "min"}).collect()[0][0]
             logger.info("min_value is {}".format(min_value))
             if min_value <= 0:
-                df = df.withColumn(df.columns[0], funct.col(df.columns[0]) + abs(min_value) + 0.01)
+                df = df.withColumn(column_name, funct.col(column_name) + abs(min_value) + 0.01)
             return df
         except Exception as e:
             logger.error(e)
@@ -75,21 +74,47 @@ class MinimizeSkewness(Transformer):
         :return: less skewed dataframe
         """
         try:
-            for col in columns:
-                skew_val = df.select(funct.skewness(df[col])).collect()[0][0]
+            for col_name in columns:
 
-                if abs(skew_val) > self.threshold and skew_val < 0:
-                    df = self.handle_neg_values(df[[col]])
-                    df = df.withColumn(col, self.udf_box_cox()(funct.col(col)))
+                skew_val = df.select(funct.skewness(df[col_name])).collect()[0][0]
+                if skew_val is not None:
+                    if abs(skew_val) > self.threshold and skew_val < 0:
 
-                elif abs(skew_val) > self.threshold and skew_val > 0:
-                    df = self.handle_neg_values(df[[col]])
-                    df = df.withColumn(col, self.udf_log()(funct.col(col)))
+                        df = self.handle_neg_values(df,col_name)
+                        df = df.withColumn(col_name, self.udf_box_cox()(funct.col(col_name)))
+
+                    elif abs(skew_val) > self.threshold and skew_val > 0:
+                        df = self.handle_neg_values(df,col_name)
+                        df = df.withColumn(col_name, self.udf_log()(funct.col(col_name)))
 
             return df
         except Exception as e:
             logger.error(e)
 
+    def skewed_features(self,df):
+        """
+
+        :param df:
+        :return:
+        """
+        try:
+            skewed_features = []
+            for col in df.columns:
+                skew_val = df.select(funct.skewness(df[col])).collect()[0][0]
+                if skew_val is not None:
+                    if abs(skew_val) > self.threshold and skew_val < 0:
+                        skewed_features.append(col)
+                    elif abs(skew_val) > self.threshold and skew_val > 0:
+                        skewed_features.append(col)
+
+            logger.warn("Skewed Columns are:")
+            logger.warn(skewed_features)
+            return skewed_features
+        except Exception as e:
+            logger.error(e)
+
     def _transform(self, df):
-        res = self.remove_skewness(df, self.columns)
+
+        columns = self.skewed_features(df)
+        res = self.remove_skewness(df, columns)
         return res
