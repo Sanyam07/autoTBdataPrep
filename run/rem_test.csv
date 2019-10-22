@@ -1,0 +1,8 @@
+,id,duplicate_id,random_col,col2,col3,col4,col5,col6
+0,1, 1#,asd,,Null,none,None,NONE
+1,2,1 #,asdf,,Null,none,None,NONE
+2,3," 1@,",sfds,,Null,none,None,NONE
+3,4," 1,_",ff,,Null,none,None,NONE
+4,5,2,ff,,Null,none,None,NONE
+5,6,3,fsdd,,Null,none,None,NONE
+6,7,3,fsdd,,Null,none,None,NONE

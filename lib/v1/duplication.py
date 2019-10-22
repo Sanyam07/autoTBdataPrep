@@ -1,20 +1,31 @@
 import re
+import sys
 from urllib.parse import urlparse
 import pyspark.sql.functions as funct
 from nltk.corpus import stopwords
 from pyspark.sql.types import StringType
 from lib.logs import logger
+from pyspark.sql import Window
 
 
 class Duplication(object):
 
     def __init__(self):
+        """
+
+        """
         self.stop_words = stopwords.words('english')
 
     @staticmethod
     def remove_duplicate_ids(df, column_name=[]):
-        if column_name==[]:
-            column_name= df.columns
+        """
+        Remove the special characters from the id columns to remove duplicates
+        :param df: orig dataframe
+        :param column_name: list of columns containing id
+        :return: dataframe with new columns after cleaning id
+        """
+        if column_name == []:
+            column_name = df.columns
         for i in column_name:
             df = df.withColumn(i + '_new',
                                funct.regexp_replace(funct.trim(funct.lower(funct.col(i).cast("string"))),
@@ -50,18 +61,20 @@ class Duplication(object):
 
             return '/'.join(elem)
         except Exception as e:
-            print(e)
+            logger.error(e)
 
     def udf_remove_stop_words(self, base_url):
         """
         a run function to create a udf function with default params
-        :param base_url:
-        :return:
+        :param base_url: contains base_url if any
+        :return: cleaned url
         """
         return funct.udf(lambda x: self.removing_stop_words(x, base_url))
 
     def remove_duplicate_urls(self, df, column_name, base_url=''):
         """
+        Orig dataframe is received  with columns containing urls .
+        Those columns are cleaned to remove duplication
 
         :param df: dataframe containing data which need to be cleaned
         :param column_name: list of columns containing urls
@@ -81,7 +94,8 @@ class Duplication(object):
     @staticmethod
     def remove_columns_containing_all_nan_values(df, threshold=80):
         """
-        take a dataframe and threshold removes column which contains nan >=threshold
+        receives a dataframe and threshold,
+        removes column which contains nan >=threshold
         :param df: original dataframe containing data
         :param threshold: nans threshold from 0-100 as percentage
         :return: return dataframe after removing columns
@@ -89,11 +103,21 @@ class Duplication(object):
         try:
             null_counts = \
                 df.select(
-                    [funct.count(funct.when(funct.col(col).isNull(), col)).alias(col) for col in df.columns]).collect()[
+                    [funct.count(funct.when(funct.col(col).isNull() |
+                                            funct.col(col).contains("NULL") |
+                                            funct.col(col).contains("null") |
+                                            funct.col(col).contains("Null") |
+
+                                            funct.col(col).contains("None") |
+                                            funct.col(col).contains("NONE") |
+                                            funct.col(col).contains("none"), col)).alias(col) for col in
+                     df.columns]).collect()[
                     0].asDict()
             size_df = df.count()
             to_drop = [k for k, v in null_counts.items() if ((v / size_df) * 100) >= threshold]
-
+            print("check")
+            logger.warn("columns to drop ")
+            logger.warn(to_drop)
             df = df.drop(*to_drop)
             return df
         except Exception as e:
@@ -118,12 +142,39 @@ class Duplication(object):
         except Exception as e:
             logger.error(e)
 
-    def date_formatting(self,df):
+    @staticmethod
+    def fetch_columns_containing_url(df):
         """
+        Automatically fetch column name contains urls
+        :param df: orig dataframe
+        :return: return list of columns containing urls
+        """
+        try:
+            col_dict = df.select([funct.col(col).rlike(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))').alias(col) for col in
+                                  df.columns]).collect()[0].asDict()
+            col_containing_url = [k for k, v in col_dict.items() if v is True]
+            return col_containing_url
+        except Exception as e:
+            logger.error(e)
 
-        :param df:
+    def converting_file_into_chunks(self, df, chunk_size=100):
+        """
+        Large pyspark dataframe is converted into chunks and converted to pandas to
+         convert it into pandas df
+        :param df: orig dataframe
+        :param chunk_size: size of each dataframe chunk
         :return:
         """
+        # created window using first column
+        window = Window.orderBy(funct.col(df.columns[0]))
+        df = df.withColumn('row_number', funct.row_number().over(window))
 
-    def remove_duplicate_address(self, df, column_name):
-        pass
+        for i in range(0, df.count(), chunk_size):
+            chunk = df.where((funct.col('row_number') >= i) & (funct.col('row_number') < (i + chunk_size)))
+            logger.info(chunk.count())
+            if chunk.count() != 0:
+                pd_df = chunk.toPandas()
+
+                ### you can do what ever you want to with the pandas ddataframe
+                pd_df.to_csv("{}_file.csv".format(i))
+                print("############")

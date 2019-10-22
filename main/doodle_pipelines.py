@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+import sys
+
+=======
+>>>>>>> master
 from lib_v2.columns_dropping_nan import ColumnsDroppingContainsNan
 from lib_v2.columns_dropping_with_same_value import ColumnsDroppingSameValue
 from lib_v2.removing_duplication_urls import RemovingDuplicationUrl
@@ -76,8 +81,14 @@ def date_conversion():
 
 def remove_skewness():
     df = sql.read.csv("./run/file1.csv", inferSchema=True, header=True)
+<<<<<<< HEAD
+    print(df.columns)
+    min_skewness = MinimizeSkewness()
+    model = Pipeline(stages=[min_skewness]).fit(df)
+=======
     min_skewness = MinimizeSkewness(['Purpose'])
     model  = Pipeline(stages=[min_skewness]).fit(df)
+>>>>>>> master
     res = model.transform(df)
     print(res.show())
 
