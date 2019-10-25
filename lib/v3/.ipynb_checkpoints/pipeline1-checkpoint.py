@@ -2,9 +2,12 @@ from imports import *
 from drop import *
 from correct_day_format import *
 from type_to_double import *
-
-
-
+from handle_null_values import *
+from drop_col_with_same_val import *
+from find_time_variables import *
+from correct_variable_types import *
+from removing_duplication_urls import *
+from treat_url_variables import *
 
 
 
@@ -103,46 +106,88 @@ class transform_pipeline():
 
 
         # 1. Find variables with 70% or more null values
-        # Drop all these variables. 
+        try:
+            variables= self.variables_with_null_more_than(df, percentage=30)
+        except Exception as e:
+            print(e, "in finding columns with a lot of missing values")
+            return False
+        # Drop all these variables.
+        try:
+            self.drop_these_variables(variables)
+        except Exception as e:
+            print(e, "in dropping variables.")
+            return False
         
+          
         
         # 2. Find all variable with single value
+        try:
+            variables= self.variables_with_same_val(df)
+        except Exception as e:
+            print(e, "in finding columns with only one value")
+            return False
         # Drop all these variables.
+        try:
+            self.drop_these_variables(variables)
+        except Exception as e:
+            print(e, "in dropping variables.")
+            return False
         
         
         # 2b. Run a tree based model to shortlist most important variables to choose from.
         
         
         
-        
         # 3. Find which varaible contains time and what the format of time is
-        ## incomplete
+        try:
+            time_variables= self.find_all_time_variables(df)
+        except Exception as e:
+            print(e, "in finding columns with only one value")
+            return False
         # handle time
         try:
-            self.split_change_time()
+            self.split_change_time(time_variables)
         except Exception as e:
             print(e, "in split time")
             return False
 
+
         
         # 4. convert variable type
-        #    a. Check if some numerical variables are saved as strings.
-        #    b. Correct type
-        #    c. Convert all currect numerical variables into double
         try:
-            self.int_to_double()
+            int_variables= self.correct_variable_types(df)
+        except Exception as e:
+            print(e, "in finding columns with only one value")
+            return False
+        # Change type
+        try:
+            self.int_to_double(df.dtypes, int_variables)
         except Exception as e:
             print(e, "int to double")
             return False
 
         
+        
         # 5. Treat duplications
+        try:
+            url_variables= self.find_variables_containing_urls(df)
+        except Exception as e:
+            print(e, "in finding columns with only one value")
+            return False
+        # Change type
+        try:
+            self.clean_variable_containing_urls(url_variables)
+        except Exception as e:
+            print(e, "int to double")
+            return False
         
         
         # 6. Find which variables contain skewness
         # Treat skewed variables.
         
   
+
+
 
         # Part of pipeline 2
 """        
@@ -152,7 +197,7 @@ class transform_pipeline():
         
         
         
-        # 8. categories: string to integer
+        # 8. Encode categorical variables
         try:
             
             self.encode_categorical_var()
@@ -179,10 +224,71 @@ class transform_pipeline():
         return True
 
 
-    def int_to_double(self):
+    def find_variables_containing_urls(self, df):
+        
+        """Find all variables containing urls"""
+        n= removing_duplication_urls()
+        variables= n.fetch_columns_containing_url(df)
+        return variables
+    
+    def clean_variable_containing_urls(self, df, variables=[]):
+        
+        """Remove column with null values"""
+        for v in variables:
+            d = treat_url_variables(column=v)
+                self.stages+= [change]
+
+                
+    def variables_with_null_more_than(self, df, percentage=20):
+        
+        """Remove column with null values"""
+        n= handle_null_values()
+        variables= n.delete_var_with_null_more_than(df, percentage=percentage)
+        return variables
+
+    
+    def correct_variable_types(self, df):
+        
+        """Find all numeric variables saved as string."""
+        n= correct_variable_types()
+        variables= n.find_numeric_variables_saved_as_string(df)
+        return variables
+
+
+
+    def find_all_time_variables(self, df, percentage=20):
+        
+        """Remove column with null values"""
+        n= find_time_variables()
+        variables= n.run(df)
+        return variables
+
+    
+    def variables_with_same_val(self, df):
+        
+        """Remove column with null values"""
+        n= drop_col_with_same_val()
+        variables= n.run(df)
+        return variables
+    
+    
+    def drop_these_variables(self, variables):   
+        for v in variables:
+            d = drop(column=v)
+                self.stages+= [change]
+        
+        
+        
+
+    def int_to_double(self, dtypes, int_variables):
         co= ['bigint', 'int', 'double', 'float']
-        for colum in self.param["columns"]:
-            if self.param['correct_var_types'][colum[0]] in co:
+        
+        for colum in dtypes:
+            if colum[1] in co:
+                # time to transform
+                change = change_type(column=colum[0])
+                self.stages+= [change]
+            elif colum[1] in int_variables:
                 # time to transform
                 change = change_type(column=colum[0])
                 self.stages+= [change]
@@ -213,10 +319,10 @@ class transform_pipeline():
         self.stages+= [imputer]
 
 
-    def split_change_time(self):
-        if self.param['time_variable'] != []:
-            time= correct_day_format(self.param['time_variable'][0], self.param['time_variable'][1])
-            self.stages+= [time]
+    def split_change_time(self, time_variables):
+        for v in time_variables:
+            time= correct_day_format(v)
+                self.stages+= [time]
 
     def drop_empty_columns(self):
         pass

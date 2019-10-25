@@ -1,7 +1,7 @@
 from imports import *
 
 
-class change_type(Transformer,DefaultParamsReadable, DefaultParamsWritable):
+class treat_url_variables(Transformer,DefaultParamsReadable, DefaultParamsWritable):
 
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
 
