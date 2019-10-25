@@ -51,7 +51,7 @@ class transform_pipeline():
         if self.param["s3"]==True:
              self.pipeline.save('s3n://'+bucket+'/'+ path)
         
-        if self.param["local"]==True
+        if self.param["local"]==True:
             self.pipeline.save(os.path.join('spark', path))
             
         return path
@@ -62,7 +62,7 @@ class transform_pipeline():
             return False
         if self.param["s3"]==True:
             pipeline = Pipeline.load('s3n://'+bucket+'/'+ path)
-        if self.param["local"]==True
+        if self.param["local"]==True:
             pipeline = Pipeline.load(os.path.join(settings.BASE_DIR, 'spark', path))
             
         self.pipeline= pipeline.fit(df)
@@ -95,10 +95,8 @@ class transform_pipeline():
     def build_pipeline(self, df=None):
         # make sure all the variables are available
         if self.param['variables_updated']==False:
-            print("Summary parameters are missing.")
             return False
         if df == None:
-            print("Please provide dataframe to build a pipeline")
             return False
 
 
