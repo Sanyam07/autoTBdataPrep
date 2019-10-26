@@ -120,7 +120,7 @@ class transform_pipeline():
         try:
             time_variables = self.find_all_time_variables(df)
         except Exception as e:
-            print(e, "in finding time variables. 2")
+            logger.error(e)
             return False
         # handle time
         try:
