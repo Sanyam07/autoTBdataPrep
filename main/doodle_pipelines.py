@@ -89,6 +89,6 @@ def remove_skewness():
 if __name__ == "__main__":
     # columns_same_value()
     # remove_cols_containing_nan()
-    # remove_url_duplication()
+    remove_url_duplication()
     # date_conversion()
-    remove_skewness()
+    # remove_skewness()
