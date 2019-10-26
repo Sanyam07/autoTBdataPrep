@@ -1,5 +1,5 @@
 # imports
-from lib.logs import logger
+from lib.v3.logs import logger
 
 class SaveFileLocal(object):
     def __init__(self):

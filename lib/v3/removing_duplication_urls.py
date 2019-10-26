@@ -1,15 +1,15 @@
 import pyspark.sql.functions as funct
 from pyspark.ml import Transformer
-from lib_v2.logs import logger
+from lib.v3.logs import logger
 from nltk.corpus import stopwords
 
 import re
 from urllib.parse import urlparse
 
 
-class RemovingDuplicationUrl(Transformer):
+class removing_duplication_urls(Transformer):
     def __init__(self, base_url=''):
-        super(RemovingDuplicationUrl, self).__init__()
+        super(removing_duplication_urls, self).__init__()
         self.stop_words = stopwords.words('english')
         self.base_url = base_url
 
