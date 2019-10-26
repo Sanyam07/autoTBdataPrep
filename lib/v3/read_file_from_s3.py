@@ -1,7 +1,6 @@
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
-import boto3
-from lib.v3.logs import logger
+from lib.v2.Logger.logs import logger
 
 
 # imports

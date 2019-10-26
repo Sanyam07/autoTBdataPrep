@@ -1,6 +1,6 @@
 import pyspark.sql.functions as funct
 from pyspark.ml import Transformer
-from lib.v3.logs import logger
+from lib.v2.Logger.logs import logger
 from nltk.corpus import stopwords
 
 import re

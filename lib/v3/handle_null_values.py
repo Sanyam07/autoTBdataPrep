@@ -3,7 +3,7 @@ import datetime
 import pyspark.sql.functions as funct
 from pyspark.sql.types import TimestampType
 from dateutil import parser
-from lib.v3.logs import logger
+from lib.v2.Logger.logs import logger
 
 from pyspark.sql.functions import isnan, when, count, col, from_unixtime
 from pyspark.sql.types import DoubleType, TimestampType

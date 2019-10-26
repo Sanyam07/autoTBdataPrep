@@ -1,30 +1,18 @@
 import re
-import datetime
 import pyspark.sql.functions as funct
 from pyspark.sql.types import TimestampType
 from dateutil import parser
-from lib.v3.logs import logger
-
-from pyspark.sql.functions import isnan, when, count, col, from_unixtime
-from pyspark.sql.types import DoubleType, TimestampType
-import datawig
-import datetime
-
-
-
+from lib.v2.Logger.logs import logger
 
 
 class find_time_variables(object):
     def __init__(self):
-        self.variables=[]
-        self.categorical_variables=[]
-        self.numerical_variables=[]
-        self.models={}
-        self.df=None
-              
+        self.variables = []
+        self.categorical_variables = []
+        self.numerical_variables = []
+        self.models = {}
+        self.df = None
 
-    
-    
     def run(self, df):
         """
         Automatically detects the column which contains the date values
