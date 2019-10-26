@@ -31,7 +31,6 @@ class EtlPipeline():
         while done:
             self.sc = pyspark.SparkContext.getOrCreate()
             if self.sc is None:
-                print("something")
                 time.sleep(2)
             else:
                 done = False
@@ -70,7 +69,7 @@ class EtlPipeline():
 
     def load_pipeline(self, df=None, bucket='mltrons', path=None):
         if df is None:
-            print("PLease provide test df")
+            logger.warn("PLease provide test df")
             return False
 
         if self.param["s3"] is True:
@@ -214,13 +213,32 @@ class EtlPipeline():
             logger.error("in filling numeric variables with mean.")
             return False
 
-        logger.wanr("6. Treat missing values in numeric variables")
+        """6. Minimizing Skewness."""
+        try:
+            variables = self.fetch_skewed_features(df)
+            self.skewed_transformer(variables)
+        except Exception as e:
+            logger.error(e)
+            logger.error("in minimizing skewness.")
+            return False
+
+        logger.warn("6. Treat missing values in numeric variables")
 
         """Initialize spark pipeline."""
         pi = Pipeline(stages=self.stages)
 
         self.pipeline = pi.fit(df)
         return self.pipeline
+
+    def fetch_skewed_features(self, df):
+        """
+
+        :param df:
+        :return:
+        """
+        n = FetchSkewedCol()
+        features = n.skewed_features(df)
+        return features
 
     def find_variables_containing_urls(self, df):
 
@@ -326,6 +344,11 @@ class EtlPipeline():
             self.stages += [time_data]
 
             # To Do
+
+    def skewed_transformer(self, skewed_columns):
+        for col in skewed_columns:
+            skewed_data = SkewnessTransformer(column=col)
+            self.stages += [skewed_data]
 
 
 """ 
