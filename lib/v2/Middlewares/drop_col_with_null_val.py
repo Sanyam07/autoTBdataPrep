@@ -35,8 +35,9 @@ class DropNullValueCol(object):
             to_drop = [k for k, v in null_counts.items() if ((v / size_df) * 100) >= threshold]
             logger.warn("columns to drop :")
             logger.warn(to_drop)
-            df = df.drop(*to_drop)
-            return df
+
+            return to_drop
 
         except Exception as e:
             logger.error(e)
+            return []
