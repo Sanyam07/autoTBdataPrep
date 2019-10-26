@@ -2,8 +2,9 @@ from lib.v2.imports import *
 
 
 class FetchSkewedCol(object):
-    def __init__(self):
+    def __init__(self,threshold=0.7):
         self.skewed_col = []
+        self.threshold = threshold
 
     def skewed_features(self, df):
         """
