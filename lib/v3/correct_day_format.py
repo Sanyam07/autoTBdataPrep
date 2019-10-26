@@ -6,6 +6,7 @@ from dateutil import parser
 
 
 class correct_day_format(Transformer,DefaultParamsReadable, DefaultParamsWritable):
+
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
 
     def __init__(self, column=''):
