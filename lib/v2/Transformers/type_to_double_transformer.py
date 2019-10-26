@@ -1,14 +1,14 @@
-from lib.v3.imports import *
+from lib.v2.imports import *
 
 
-class treat_url_variables(Transformer,DefaultParamsReadable, DefaultParamsWritable):
+class TypeDoubleTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable):
 
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
 
     def __init__(self, column=''):
-        super(change_type, self).__init__()
+        super(TypeDoubleTransformer, self).__init__()
 
-        self._setDefault(column= column)
+        self._setDefault(column=column)
         self.setColumn(column)
 
     def getColumn(self):
@@ -17,15 +17,13 @@ class treat_url_variables(Transformer,DefaultParamsReadable, DefaultParamsWritab
         """
         return self.getOrDefault(self.column)
 
-
     def setColumn(self, value):
         """
         Sets the value of :py:attr:`withStd`.
         """
         return self._set(column=value)
 
-
-    def _transform(self,df):
-        return df.withColumn(self.getColumn(), col(self.getColumn()).cast(DoubleType()))
+    def _transform(self, df):
+        return df.withColumn(self.getColumn(), funct.col(self.getColumn()).cast(DoubleType()))
 
 
