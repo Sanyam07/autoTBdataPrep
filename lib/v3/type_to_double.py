@@ -6,7 +6,7 @@ class treat_url_variables(Transformer,DefaultParamsReadable, DefaultParamsWritab
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
 
     def __init__(self, column=''):
-        super(change_type, self).__init__()
+        # super(change_type, self).__init__()
 
         self._setDefault(column= column)
         self.setColumn(column)
