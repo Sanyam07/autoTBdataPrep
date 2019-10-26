@@ -1,7 +1,7 @@
 # imports
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
-from lib.logs import logger
+from lib.v3.logs import logger
 
 class ReadFileFromLocal(object):
     def __init__(self):

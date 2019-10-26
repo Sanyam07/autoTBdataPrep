@@ -1,7 +1,7 @@
 # imports
-from lib.read_file_from_local import ReadFileFromLocal
-from lib.read_file_from_s3 import ReadFileFromS3
-from lib.logs import logger
+from lib.v3.read_file_from_local import ReadFileFromLocal
+from lib.v3.read_file_from_s3 import ReadFileFromS3
+from lib.v3.logs import logger
 
 
 class ReadFile(object):
