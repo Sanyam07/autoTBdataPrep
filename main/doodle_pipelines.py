@@ -20,7 +20,7 @@ sql = SparkSession(s)
 
 def columns_same_value():
     try:
-        df = sql.read.csv("./run/column_rem.csv", inferSchema=True, header=True)
+        df = sql.read.csv("./run/rem_test.csv", inferSchema=True, header=True)
 
         columns_with_same_val = ColumnsDroppingSameValue()
         model = Pipeline(stages=[columns_with_same_val]).fit(df)
@@ -87,8 +87,8 @@ def remove_skewness():
 
 
 if __name__ == "__main__":
-    # columns_same_value()
+    columns_same_value()
     # remove_cols_containing_nan()
-    remove_url_duplication()
+    # remove_url_duplication()
     # date_conversion()
     # remove_skewness()
