@@ -55,7 +55,7 @@ class transform_pipeline():
             self.pipeline.save('s3n://' + bucket + '/' + path)
 
         if self.param["local"] == True:
-            self.pipeline.save(path)
+            self.pipeline.save(os.path.join('spark', path))
 
         return path
 
@@ -66,7 +66,7 @@ class transform_pipeline():
         if self.param["s3"] == True:
             pipeline = Pipeline.load('s3n://' + bucket + '/' + path)
         if self.param["local"] == True:
-            pipeline = Pipeline.load(path)
+            pipeline = Pipeline.load(os.path.join('spark', path))
 
         self.pipeline = pipeline.fit(df)
         return self.pipeline
@@ -306,13 +306,13 @@ class transform_pipeline():
 
 """ 
 Pipeline 1 remaining steps
-        
+
         # 7. Find which variables contain skewness
         # Treat skewed variables.
-        
+
         # 8. Find which variables are important.
         # Drop unimportant variables.
-        
+
 """
 
 """
@@ -324,17 +324,17 @@ Pipeline 2
 
 """
 Pipeline 3
-      
+
         # 9. Encode categorical variables
         try:
-            
+
             self.encode_categorical_var()
         except Exception as e:
             print(e, "categorical to float")
             return False
 
-            
-            
+
+
         # 10. Find the order of all variables.
         # Rearrange dataframe using above order.
 

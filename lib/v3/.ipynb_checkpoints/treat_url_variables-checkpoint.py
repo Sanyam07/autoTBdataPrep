@@ -1,5 +1,4 @@
-from lib.v3.imports import *
-
+from imports import *
 
 
 class treat_url_variables(Transformer,DefaultParamsReadable, DefaultParamsWritable):

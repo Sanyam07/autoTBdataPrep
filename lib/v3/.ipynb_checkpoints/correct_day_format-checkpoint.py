@@ -1,18 +1,21 @@
-from lib.v3.imports import *
+from imports import *
 import pyspark.sql.functions as funct
-from lib.v3.logs import logger
-
+from logs import logger
 from dateutil import parser
 
 
 class correct_day_format(Transformer,DefaultParamsReadable, DefaultParamsWritable):
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
+    formt = Param(Params._dummy(), "formt", "format", typeConverter=TypeConverters.toString)
 
     def __init__(self, column=''):
         super(correct_day_format, self).__init__()
         # lazy workaround - a transformer needs to have these attributes
+#         self._defaultParamMap = dict()
+#         self._paramMap = dict()
         self._setDefault(column= column)
         self.setColumn(column)
+        self.setFormt(formt)
 
 
 #         self.uid= str(uuid.uuid4())
