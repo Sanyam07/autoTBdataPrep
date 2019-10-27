@@ -213,7 +213,7 @@ class EtlPipeline():
             logger.error("in filling numeric variables with mean.")
             return False
 
-        """6. Minimizing Skewness."""
+        """7. Minimizing Skewness."""
         try:
             variables = self.fetch_skewed_features(df)
             self.skewed_transformer(variables)
@@ -223,6 +223,28 @@ class EtlPipeline():
             return False
 
         logger.warn("6. Treat missing values in numeric variables")
+        
+        
+        
+        """8. Encode categorical variables"""
+        try:
+            self.encode_categorical_var()
+        except Exception as e:
+            logger.error(e)
+            logger.error("in encoding categorical variables.")
+            return False
+
+        
+        """9.Impute missing values in categorical variables."""
+        try:
+            self.handle_missing_values(self.param["categorical_variables"])
+        except Exception as e:
+            logger.error(e)
+            logger.error("in imputing categorical variables.")
+            return False
+        
+        
+        
 
         """Initialize spark pipeline."""
         pi = Pipeline(stages=self.stages)
@@ -306,29 +328,28 @@ class EtlPipeline():
         co = ['bigint', 'int', 'double', 'float']
 
         numeric_variables = []
+        categorical_variables=[]
         for colum in dtypes:
             if colum[1] in co:
                 numeric_variables.append(colum[0])
             elif colum[1] in int_variables:
                 numeric_variables.append(colum[0])
+            else:
+                categorical_variables.append(colum[0])
+                
+        self.param["categorical_variables"]= categorical_variables
+        self.param["numerical_variables"]= numeric_variables
         return numeric_variables
 
+    
     def encode_categorical_var(self):
-
-        for column in self.param["columns"]:
-            if self.param['time_variable'] != []:
-                if column[0] == self.param['time_variable'][0]:
-                    continue
-            if column[1] == 'string':
-                # time to transform
-                stringIndexer = StringIndexer(inputCol=column[0], outputCol=column[0] + "Index").setHandleInvalid(
-                    "keep")
-                self.param["selected_columns"].append(column[0] + "Index")
+        
+        for column in self.param["categorical_variables"]:
+            stringIndexer = StringIndexer(inputCol=column, outputCol=column + "index").setHandleInvalid("keep")
+                self.param["selected_columns"].append(column + "_index")
                 self.stages += [stringIndexer]
-                d = DropTransformer(column[0])
+                d = DropTransformer(column)
                 self.stages += [d]
-            else:
-                self.param["selected_columns"].append(column[0])
 
     def handle_missing_values(self, numeric_variables):
 
@@ -350,12 +371,12 @@ class EtlPipeline():
             skewed_data = SkewnessTransformer(column=col)
             self.stages += [skewed_data]
 
+            
+
 
 """ 
 Pipeline 1 remaining steps
 
-        # 7. Find which variables contain skewness
-        # Treat skewed variables.
 
         # 8. Find which variables are important.
         # Drop unimportant variables.
