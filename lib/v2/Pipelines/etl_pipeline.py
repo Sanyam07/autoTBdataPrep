@@ -155,7 +155,9 @@ class EtlPipeline():
         # handle time
         try:
             self.split_change_time(time_variables)
+
             self.drop_variables(time_variables)
+
         except Exception as e:
             logger.error(e)
             logger.error("in split time. 2")
@@ -266,12 +268,15 @@ class EtlPipeline():
         
         
 
-        """Initialize spark pipeline."""
-        pi = Pipeline(stages=self.stages)
+        try:
+            """Initialize spark pipeline."""
+            pi = Pipeline(stages=self.stages)
 
-        self.pipeline = pi.fit(df)
-        return self.pipeline
-
+            self.pipeline = pi.fit(df)
+            return self.pipeline
+        except Exception as e :
+            logger.error(e)
+            logger.error("after calling all stages into pipeline")
     def fetch_skewed_features(self, df):
         """
 

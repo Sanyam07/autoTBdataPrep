@@ -7,10 +7,10 @@ from dateutil import parser
 class DateTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable):
     column = Param(Params._dummy(), "column", "column for transformation", typeConverter=TypeConverters.toString)
 
-    def __init__(self, column='', time_format='yyyy-MM-dd HH:mm:ss.SS'):
+    def __init__(self, column='', time_format='yyyy-mm-dd HH:mm:ss'):
 
         super(DateTransformer, self).__init__()
-        # lazy workaround - a transformer needs to have these attributes
+        #    lazy workaround - a transformer needs to have these attributes
 
         self._setDefault(column=column)
         self.setColumn(column)
@@ -37,25 +37,23 @@ class DateTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable)
         # code from tawab. Convert all times in a same format.
 
         df = df.withColumn(new_time_variable, self.udf_date_formatting()(funct.col(time_variable).cast("String")))
-
         df = df.withColumn(new_time_variable,
-                           from_unixtime(unix_timestamp(time_variable + '_new', self.time_format)).cast(
+                           funct.from_unixtime(funct.unix_timestamp(new_time_variable, self.time_format)).cast(
                                TimestampType()))
 
-        df = df.withColumn(time_variable + '_year', year(new_time_variable))
-        df = df.withColumn(time_variable + '_month', month(new_time_variable))
-        df = df.withColumn(time_variable + '_day', dayofmonth(new_time_variable))
-        df = df.withColumn(time_variable + '_dayofweek', dayofweek(new_time_variable))
-        df = df.withColumn(time_variable + '_hour', hour(new_time_variable))
-        df = df.withColumn(time_variable + '_minutes', minute(new_time_variable))
-        df = df.withColumn(time_variable + '_seconds', second(new_time_variable))
+        df = df.withColumn(time_variable + '_year', funct.year(new_time_variable))
+        df = df.withColumn(time_variable + '_month', funct.month(new_time_variable))
+        df = df.withColumn(time_variable + '_day', funct.dayofmonth(new_time_variable))
+        df = df.withColumn(time_variable + '_dayofweek', funct.dayofweek(new_time_variable))
+        df = df.withColumn(time_variable + '_hour', funct.hour(new_time_variable))
+        df = df.withColumn(time_variable + '_minutes', funct.minute(new_time_variable))
+        df = df.withColumn(time_variable + '_seconds', funct.second(new_time_variable))
 
         df = df.drop(new_time_variable)
         df = df.drop(time_variable)
         return df
 
-    @staticmethod
-    def date_formatting(x):
+    def date_formatting(self, x):
         """
         dateutill library is used to convert the different format of dates into standard format
         :param x: row wise date values
@@ -72,6 +70,5 @@ class DateTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable)
         Run function calls the main date_formatting function
         :return: standard format of date
         """
+        
         return funct.udf(lambda row: self.date_formatting(row))
-
-
