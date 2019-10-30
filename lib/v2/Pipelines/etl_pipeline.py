@@ -139,6 +139,7 @@ class EtlPipeline():
         # handle time
         try:
             self.split_change_time(time_variables)
+
         except Exception as e:
             logger.error(e)
             logger.error("in split time. 2")
