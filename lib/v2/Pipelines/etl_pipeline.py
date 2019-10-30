@@ -224,12 +224,15 @@ class EtlPipeline():
 
         logger.warn("6. Treat missing values in numeric variables")
 
-        """Initialize spark pipeline."""
-        pi = Pipeline(stages=self.stages)
+        try:
+            """Initialize spark pipeline."""
+            pi = Pipeline(stages=self.stages)
 
-        self.pipeline = pi.fit(df)
-        return self.pipeline
-
+            self.pipeline = pi.fit(df)
+            return self.pipeline
+        except Exception as e :
+            logger.error(e)
+            logger.error("after calling all stages into pipeline")
     def fetch_skewed_features(self, df):
         """
 

@@ -39,16 +39,16 @@ class DateTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable)
         df = df.withColumn(new_time_variable, self.udf_date_formatting()(funct.col(time_variable).cast("String")))
 
         df = df.withColumn(new_time_variable,
-                           from_unixtime(unix_timestamp(time_variable + '_new', self.time_format)).cast(
+                           funct.from_unixtime(funct.unix_timestamp(time_variable + '_new', self.time_format)).cast(
                                TimestampType()))
 
         df = df.withColumn(time_variable + '_year', year(new_time_variable))
         df = df.withColumn(time_variable + '_month', month(new_time_variable))
         df = df.withColumn(time_variable + '_day', dayofmonth(new_time_variable))
-        df = df.withColumn(time_variable + '_dayofweek', dayofweek(new_time_variable))
-        df = df.withColumn(time_variable + '_hour', hour(new_time_variable))
-        df = df.withColumn(time_variable + '_minutes', minute(new_time_variable))
-        df = df.withColumn(time_variable + '_seconds', second(new_time_variable))
+        df = df.withColumn(time_variable + '_dayofweek', funct.dayofweek(new_time_variable))
+        df = df.withColumn(time_variable + '_hour', funct.hour(new_time_variable))
+        df = df.withColumn(time_variable + '_minutes', funct.minute(new_time_variable))
+        df = df.withColumn(time_variable + '_seconds', funct.second(new_time_variable))
 
         df = df.drop(new_time_variable)
         df = df.drop(time_variable)
