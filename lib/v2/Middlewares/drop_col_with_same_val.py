@@ -10,17 +10,20 @@ class DropSameValueColumn(object):
         self.models = {}
         self.df = None
 
-    def run(self, df):
+    def run(self, df, dropped_variables=[]):
 
         """
         remove columns which contains only one kind of value
         :param df: original dataframe containing data
         :return: return dataframe after removing columns
         """
+        
+        columns= list(set(df.columns)-set(dropped_variables))
+        
         try:
 
             col_counts = \
-                df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in df.columns]).collect()[
+                df.select([(funct.countDistinct(funct.col(col))).alias(col) for col in columns]).collect()[
                     0].asDict()
             to_drop = [k for k, v in col_counts.items() if v == 1]
 

@@ -10,15 +10,16 @@ class FetchDateTimeCol(object):
         self.df = None
 
     @staticmethod
-    def run(df):
+    def run(df,dropped_variables=[]):
         """
         Automatically detects the column which contains the date values
         :param df: orig dataframe
         :return: list of column name contains the date values
         """
+        columns= list(set(df.columns)-set(dropped_variables))
         try:
             col_dict = df.select([funct.col(col).rlike(r'(\d+(/|-){1}\d+(/|-){1}\d{2,4})').alias(col) for col in
-                                  df.columns]).collect()[0].asDict()
+                                  columns]).collect()[0].asDict()
             col_containig_dates = [k for k, v in col_dict.items() if v is True]
 
             logger.warn("columns cotanins date:")

@@ -25,7 +25,7 @@ class EtlPipeline():
         self.pipeline = None
         self.stages = []
         # selected_columns specifies the order of the columns
-        self.param = {"local": local, "s3": s3}
+        self.param = {"local": local, "s3": s3, "dropped_variables": [], "selected_variables":[]}
 
         done = True
         while done:
@@ -106,6 +106,16 @@ class EtlPipeline():
             return False
         df = self.pipeline.transform(df)
         return df
+    
+    def drop_variables(self, drp_var_array):
+        current_array= self.param["dropped_variables"]
+        
+        for i in drp_var_array:
+            current_array.append(i)
+            
+        self.param["dropped_variables"]= current_array
+        
+        
 
     def build_pipeline(self, df=None):
 
@@ -113,9 +123,13 @@ class EtlPipeline():
             logger.error("Please provide dataframe to build a pipeline")
             return False
 
+        """Update param """
+        self.param["all_variables"]= df.columns
+        
+        
         """1. Find variables with 70% or more null values"""
         try:
-            variables = self.variables_with_null_more_than(df, percentage=30)
+            variables = self.variables_with_null_more_than(df, percentage=60)
         except Exception as e:
             logger.error(e)
             logger.error("in finding columns with a lot of missing values. 1")
@@ -123,6 +137,7 @@ class EtlPipeline():
         # Drop all these variables.
         try:
             self.drop_these_variables(variables)
+            self.drop_variables(variables)
         except Exception as e:
             logger.error(e)
             logger.error("in dropping variables. 1")
@@ -133,12 +148,15 @@ class EtlPipeline():
         """ 2. Find which variable contains time and what the format of time is"""
         try:
             time_variables = self.find_all_time_variables(df)
+            print("time variables", time_variables)
         except Exception as e:
             logger.error(e)
             return False
         # handle time
         try:
             self.split_change_time(time_variables)
+
+            self.drop_variables(time_variables)
 
         except Exception as e:
             logger.error(e)
@@ -149,14 +167,15 @@ class EtlPipeline():
 
         """3. Find all variables with single value"""
         try:
-            variables = self.variables_with_same_val(df)
+            same_variables = self.variables_with_same_val(df)
         except Exception as e:
             logger.error(e)
             logger.error("in finding columns with only one value. 3")
             return False
         # Drop all these variables.
         try:
-            self.drop_these_variables(variables)
+            self.drop_these_variables(same_variables)
+            self.drop_variables(same_variables)
         except Exception as e:
             logger.error(e)
             logger.error("in dropping variables. 3")
@@ -198,6 +217,8 @@ class EtlPipeline():
             return False
 
         logger.warn("5. Treat duplications")
+        
+        
 
         """6. Treat missing values in numeric variables."""
         try:
@@ -214,7 +235,7 @@ class EtlPipeline():
             logger.error("in filling numeric variables with mean.")
             return False
 
-        """6. Minimizing Skewness."""
+        """7. Minimizing Skewness."""
         try:
             variables = self.fetch_skewed_features(df)
             self.skewed_transformer(variables)
@@ -224,6 +245,28 @@ class EtlPipeline():
             return False
 
         logger.warn("6. Treat missing values in numeric variables")
+        
+        
+        
+        """8. Encode categorical variables"""
+        try:
+            self.encode_categorical_var()
+        except Exception as e:
+            logger.error(e)
+            logger.error("in encoding categorical variables.")
+            return False
+
+        
+        """9.Impute missing values in categorical variables."""
+        try:
+            self.handle_missing_values(self.param["categorical_variables"])
+        except Exception as e:
+            logger.error(e)
+            logger.error("in imputing categorical variables.")
+            return False
+        
+        
+        
 
         try:
             """Initialize spark pipeline."""
@@ -241,7 +284,7 @@ class EtlPipeline():
         :return:
         """
         n = FetchSkewedCol()
-        features = n.skewed_features(df)
+        features = n.skewed_features(df, dropped_variables=self.param["dropped_variables"])
         return features
 
     def find_variables_containing_urls(self, df):
@@ -271,21 +314,24 @@ class EtlPipeline():
 
         """Find all numeric variables saved as string."""
         n = DtypeConversion()
-        variables = n.find_numeric_variables_saved_as_string(df)
+        
+        #variables
+
+        variables = n.find_numeric_variables_saved_as_string(df, dropped_variables=self.param["dropped_variables"])
         return variables
 
     def find_all_time_variables(self, df):
 
         """Find all variables that contain time"""
         n = FetchDateTimeCol()
-        variables = n.run(df)
+        variables = n.run(df, dropped_variables=self.param["dropped_variables"])
         return variables
 
     def variables_with_same_val(self, df):
 
         """find variables that contain save value."""
         n = DropSameValueColumn()
-        variables = n.run(df)
+        variables = n.run(df, dropped_variables=self.param["dropped_variables"])
         return variables
 
     def drop_these_variables(self, variables):
@@ -297,7 +343,9 @@ class EtlPipeline():
         co = ['bigint', 'int', 'double', 'float']
 
         for column in dtypes:
-            if column[1] in co:
+            if colum[0] in self.param["dropped_variables"]:
+                pass
+            elif column[1] in co:
                 # time to transform
                 change = TypeDoubleTransformer(column=column[0])
                 self.stages += [change]
@@ -310,29 +358,30 @@ class EtlPipeline():
         co = ['bigint', 'int', 'double', 'float']
 
         numeric_variables = []
+        categorical_variables=[]
         for colum in dtypes:
-            if colum[1] in co:
+            if colum[0] in self.param["dropped_variables"]:
+                pass
+            elif colum[1] in co:
                 numeric_variables.append(colum[0])
             elif colum[1] in int_variables:
                 numeric_variables.append(colum[0])
+            else:
+                categorical_variables.append(colum[0])
+                
+        self.param["categorical_variables"]= categorical_variables
+        self.param["numerical_variables"]= numeric_variables
         return numeric_variables
 
+    
     def encode_categorical_var(self):
-
-        for column in self.param["columns"]:
-            if self.param['time_variable'] != []:
-                if column[0] == self.param['time_variable'][0]:
-                    continue
-            if column[1] == 'string':
-                # time to transform
-                stringIndexer = StringIndexer(inputCol=column[0], outputCol=column[0] + "Index").setHandleInvalid(
-                    "keep")
-                self.param["selected_columns"].append(column[0] + "Index")
-                self.stages += [stringIndexer]
-                d = DropTransformer(column[0])
-                self.stages += [d]
-            else:
-                self.param["selected_columns"].append(column[0])
+        
+        for column in self.param["categorical_variables"]:
+            stringIndexer = StringIndexer(inputCol=column, outputCol=column + "index").setHandleInvalid("keep")
+            self.param["dropped_variables"].append(column)
+            self.stages += [stringIndexer]
+            d = DropTransformer(column)
+            self.stages += [d]
 
     def handle_missing_values(self, numeric_variables):
 
@@ -354,12 +403,12 @@ class EtlPipeline():
             skewed_data = SkewnessTransformer(column=col)
             self.stages += [skewed_data]
 
+            
+
 
 """ 
 Pipeline 1 remaining steps
 
-        # 7. Find which variables contain skewness
-        # Treat skewed variables.
 
         # 8. Find which variables are important.
         # Drop unimportant variables.

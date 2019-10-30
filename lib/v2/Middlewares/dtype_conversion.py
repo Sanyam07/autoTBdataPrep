@@ -16,7 +16,7 @@ class DtypeConversion(object):
         except Exception as e:
             logger.error(e)
 
-    def find_numeric_variables_saved_as_string(self, df):
+    def find_numeric_variables_saved_as_string(self, df, dropped_variables=[]):
         """numeric variables"""
         count = int(df.count())
         print("Total number of rows in the data are: ", count)
@@ -26,7 +26,7 @@ class DtypeConversion(object):
         p = df.limit(count).toPandas()
 
         numeric_columns = []
-        columns = self.string_variables(df)  # only take string variables
+        columns = self.string_variables(df,dropped_variables )  # only take string variables
         for c in columns:
             counter = 0
             error = []
@@ -58,10 +58,12 @@ class DtypeConversion(object):
         return df
 
     @staticmethod
-    def string_variables(df):
+    def string_variables(df, dropped_variables):
         s_variables = []
         for c in df.dtypes:
-            if c[1] == "string":
+            if c[0] in dropped_variables:
+                pass
+            elif c[1] == "string":
                 s_variables.append(c[0])
 
         return s_variables

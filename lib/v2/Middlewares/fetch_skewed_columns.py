@@ -6,14 +6,16 @@ class FetchSkewedCol(object):
         self.skewed_col = []
         self.threshold = threshold
 
-    def skewed_features(self, df):
+    def skewed_features(self, df, dropped_variables=[]):
         """
 
         :param df:
         :return:
         """
+        columns= list(set(df.columns)-set(dropped_variables))
+        
         try:
-            for col in df.columns:
+            for col in columns:
                 skew_val = df.select(funct.skewness(df[col])).collect()[0][0]
                 if skew_val is not None:
                     if abs(skew_val) > self.threshold and skew_val < 0:
