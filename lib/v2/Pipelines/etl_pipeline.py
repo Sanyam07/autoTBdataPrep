@@ -107,16 +107,26 @@ class EtlPipeline():
         df = self.pipeline.transform(df)
         return df
     
-    def drop_variables(self, drp_var_array):
+    def update_param_drop_variables(self, drp_var_array):
         current_array= self.param["dropped_variables"]
         
         for i in drp_var_array:
             current_array.append(i)
             
         self.param["dropped_variables"]= current_array
+   
+    def update_param_selected_variables(self, drp_var_array):
+        current_array= self.param["selected_variables"]
+        
+        for i in drp_var_array:
+            current_array.append(i)        
+        self.param["selected_variables"]= current_array
+        
+    
+    def find_params(self, df):
+        self.param["all_variables"]= df.columns
         
         
-
     def build_pipeline(self, df=None):
 
         if df is None:
@@ -124,8 +134,8 @@ class EtlPipeline():
             return False
 
         """Update param """
-        self.find_params()
-        self.param["all_variables"]= df.columns
+        self.find_params(df)
+        
         
         
         """1. Find variables with 70% or more null values"""
@@ -138,7 +148,7 @@ class EtlPipeline():
         # Drop all these variables.
         try:
             self.drop_these_variables(variables)
-            self.drop_variables(variables)
+            self.update_param_drop_variables(variables)
         except Exception as e:
             logger.error(e)
             logger.error("in dropping variables. 1")
