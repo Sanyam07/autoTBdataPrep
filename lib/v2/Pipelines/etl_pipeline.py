@@ -25,7 +25,7 @@ class EtlPipeline():
         self.pipeline = None
         self.stages = []
         # selected_columns specifies the order of the columns
-        self.param = {"local": local, "s3": s3, "dropped_variables": [], "selected_variables":[]}
+        self.param = {"local": local, "s3": s3, "dropped_variables": [], "selected_variables":[], "all_variables":[],"numerical_variables":[], "categorical_variables":[]}
 
         done = True
         while done:
@@ -124,6 +124,7 @@ class EtlPipeline():
             return False
 
         """Update param """
+        self.find_params()
         self.param["all_variables"]= df.columns
         
         
