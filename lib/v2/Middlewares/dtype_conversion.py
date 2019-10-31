@@ -10,7 +10,6 @@ class DtypeConversion(object):
         try:
             numeric_columns = self.find_numeric_variables_saved_as_string(df)
             df = self.update_variable_types(df, numeric_columns)
-            self.update_metadata(v)
             return df
 
         except Exception as e:
@@ -68,8 +67,3 @@ class DtypeConversion(object):
 
         return s_variables
 
-    def update_metadata(self, column_name=[]):
-
-        # update meta data
-
-        return True
