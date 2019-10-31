@@ -35,7 +35,8 @@ class SkewnessTransformer(Transformer, DefaultParamsReadable, DefaultParamsWrita
         """
         try:
             min_value = df.agg({column_name: "min"}).collect()[0][0]
-            logger.info("min_value is {}".format(min_value))
+            min_value = int(min_value)
+            logger.warn("min_value is {}".format(min_value))
             if min_value <= 0:
                 df = df.withColumn(column_name, funct.col(column_name) + abs(min_value) + 0.01)
             return df

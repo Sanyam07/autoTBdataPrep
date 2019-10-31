@@ -27,10 +27,14 @@ class UrlTransformer(Transformer, DefaultParamsReadable, DefaultParamsWritable):
         return self._set(column=value)
 
     def _transform(self, df):
-        df = df.withColumn(self.getColumn() + '_new',
+        # df = df.withColumn(self.getColumn() + '_new',
+        #                    self.udf_remove_stop_words(self.base_url)(
+        #                        funct.trim(funct.lower(funct.col(self.getColumn()).cast("string")))))
+        # df=df.drop(self.getColumn())
+
+        df = df.withColumn(self.getColumn() ,
                            self.udf_remove_stop_words(self.base_url)(
                                funct.trim(funct.lower(funct.col(self.getColumn()).cast("string")))))
-        df=df.drop(self.getColumn())
 
         return df
 

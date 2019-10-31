@@ -10,7 +10,7 @@ class DropSameValueColumn(object):
         self.models = {}
         self.df = None
 
-    def run(self, df, dropped_variables=[]):
+    def run(self, df, existed_variables=[]):
 
         """
         remove columns which contains only one kind of value
@@ -18,7 +18,7 @@ class DropSameValueColumn(object):
         :return: return dataframe after removing columns
         """
         
-        columns= list(set(df.columns)-set(dropped_variables))
+        columns= existed_variables
         
         try:
 

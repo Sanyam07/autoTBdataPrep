@@ -8,27 +8,16 @@ import numpy as np
 
 file_logs("mltrons")
 
+
 def testing_pipeline():
     r = rf()
     df3 = r.read(address='./run/4alan_data_clean.csv')
     # drop address
-    df3 = df3.drop("Location")
     p1 = EtlPipeline()
     p1.build_pipeline(df3)
+    df4 = p1.transform(df3)
+    df4.toPandas().to_csv("./final_csv_31_oct.csv", index=False)
 
 
-# def date_conversion():
-#     r = rf()
-#     df3 = r.read(address='./run/4alan_data_clean.csv')
-#     df3 = df3.select(['Date_NEW'])
-#     print(df3.columns)
-#     datetime_formatting = DateTransformer()
-#     model = Pipeline(stages=[datetime_formatting]).fit(df3)
-#     res = model.transform(df3)
-#     print("DDFDfdfd")
-#     print("resulted_df")
-#     print(res.show())
-
-
-if __name__=='__main__':
+if __name__ == '__main__':
     testing_pipeline()
