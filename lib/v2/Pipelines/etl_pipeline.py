@@ -111,6 +111,9 @@ class EtlPipeline():
 
     def add_new_param(self, drp_var_array, params):
         current_array = self.param[params]
+        if type(drp_var_array) == type("str"):
+            drp_var_array = [drp_var_array]
+
         for i in drp_var_array:
             current_array.append(i)
         self.param[params] = current_array
@@ -122,6 +125,9 @@ class EtlPipeline():
         :param params:
         :return:
         """
+        if type(drop_var_array) == type("str"):
+            drop_var_array = [drop_var_array]
+
         for i in drop_var_array:
             self.param[params].remove(i)
 
@@ -275,14 +281,14 @@ class EtlPipeline():
             return False
 
         """7. Minimizing Skewness."""
-        # try:
-        #     variables = self.fetch_skewed_features(df)
-        #
-        #     self.skewed_transformer(variables)
-        # except Exception as e:
-        #     logger.error(e)
-        #     logger.error("in minimizing skewness.")
-        #     return False
+        try:
+            variables = self.fetch_skewed_features(df)
+
+            self.skewed_transformer(variables)
+        except Exception as e:
+            logger.error(e)
+            logger.error("in minimizing skewness.")
+            return False
 
         logger.warn("6. Treat missing values in numeric variables")
 
@@ -302,10 +308,6 @@ class EtlPipeline():
             logger.error("in imputing categorical variables.")
             return False
 
-        pi = Pipeline(stages=self.stages)
-
-        self.pipeline = pi.fit(df)
-        return self.pipeline
         """10.Changing variables order"""
         logger.warn("Changing Order values")
         try:
@@ -420,17 +422,23 @@ class EtlPipeline():
         return numeric_variables
 
     def encode_categorical_var(self):
+        encode_variables_new = []
 
         for column in self.param["categorical_variables"]:
             stringIndexer = StringIndexer(inputCol=column, outputCol=column + '_index').setHandleInvalid("keep")
             self.stages += [stringIndexer]
             d = DropTransformer(column)
-            self.add_new_param(column, "dropped_variables")
+            self.add_new_param([column], "dropped_variables")
             # self.remove_new_param(column, "existed_variables")
+            encode_variables_new.append(column + '_index')
+            self.remove_new_param([column], "selected_variables")
+            self.add_new_param([column + '_index'], "selected_variables")
 
-            self.add_new_param(column + '_index', "selected_variables")
-            self.remove_new_param(column, "selected_variables")
+            # self.remove_new_param(column, 'existed_variables')
+
             self.stages += [d]
+
+        self.param['categorical_variables'] = encode_variables_new
 
     def handle_missing_values(self, variables):
 
