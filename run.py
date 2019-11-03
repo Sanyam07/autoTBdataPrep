@@ -42,7 +42,7 @@ class DeployPySparkScriptOnAws(object):
         self.ec2_key_name = "emr.pem"                       # Key name to use for cluster
         self.job_flow_id = 'j-2148SON0QQF4O'                # Returned by AWS in start_spark_cluster()
         self.job_name = None                                # Filled by generate_job_name()
-        self.path_script = "spark_example/"                 # Path of Spark script to be deployed on AWS Cluster
+        self.path_script = "./spark_example/"                 # Path of Spark script to be deployed on AWS Cluster
         self.s3_bucket_logs = "dplogs"                      # S3 Bucket to store AWS EMR logs
         self.s3_bucket_temp_files = "mltronsdptemp"         # S3 Bucket to store temporary files
         self.s3_region = 's3-us-east-2.amazonaws.com'       # S3 region to specify s3Endpoint in s3-dist-cp step
@@ -64,9 +64,9 @@ class DeployPySparkScriptOnAws(object):
         c = session.client('emr','us-east-2')            # Open EMR connection
         # self.start_spark_cluster(c)                        # Start Spark EMR cluster
         self.step_spark_submit(c,"None")                     # Add step 'spark-submit'
-        self.describe_status_until_terminated(c)            # Describe cluster status until terminated
-        self.remove_temp_files(s3)                          # Remove files from the temporary files S3 bucket
-
+        # self.describe_status_until_terminated(c)            # Describe cluster status until terminated
+        # self.remove_temp_files(s3)                          # Remove files from the temporary files S3 bucket
+     
     def generate_job_name(self):
         self.job_name = "{}.{}.{}".format(self.app_name,
                                           self.user,
@@ -98,6 +98,7 @@ class DeployPySparkScriptOnAws(object):
         # Add Spark script path to tar.gz file
         files = os.listdir(self.path_script)
         for f in files:
+            print(f)
             t_file.add(self.path_script + f, arcname=f)
         # List all files in tar.gz
         for f in t_file.getnames():
@@ -143,7 +144,7 @@ class DeployPySparkScriptOnAws(object):
         response = c.run_job_flow(
             Name=self.job_name,
             LogUri="s3://{}/elasticmapreduce/".format(self.s3_bucket_logs),
-            ReleaseLabel="emr-4.4.0",
+            ReleaseLabel="emr-5.27.0",
             Instances={
                 'InstanceGroups': [
                     {
@@ -218,6 +219,8 @@ class DeployPySparkScriptOnAws(object):
         :param c:
         :return:
         """
+        step_args = ["/usr/bin/spark-submit", "--spark-conf", "your-configuration",
+                     '/home/hadoop/' + "wordcount.py", '--your-parameters', 'parameters']
         response = c.add_job_flow_steps(
             JobFlowId=self.job_flow_id,
             Steps=[
@@ -225,11 +228,8 @@ class DeployPySparkScriptOnAws(object):
                     'Name': 'Spark Application',
                     'ActionOnFailure': 'CONTINUE',
                     'HadoopJarStep': {
-                        'Jar': 'command-runner.jar',
-                        'Args': [
-                            "spark-submit",
-                            "/home/hadoop/wordcount.py"
-                        ]
+                        'Jar': 's3n://elasticmapreduce/libs/script-runner/script-runner.jar',
+                        'Args': step_args
                     }
                 },
             ]

@@ -11,4 +11,4 @@ aws s3 cp $s3_bucket_script /home/hadoop/script.tar.gz
 tar zxvf "/home/hadoop/script.tar.gz" -C /home/hadoop/
 
 # Install requirements for Python script
-# sudo python2.7 -m pip install referer_parser
+sudo python3.6 -m pip install referer_parser

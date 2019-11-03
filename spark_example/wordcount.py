@@ -15,26 +15,26 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
-import sys
-from operator import add
 from pyspark import SparkContext
-
+from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
     # Start SparkContext
-    sc = SparkContext(appName="PythonWordCount")
+    ID = 'AKIAIDRK5CMIJYQWXCBQ'
+    key = 'WNQ/TV3toWjx8mvFn6GW8sQLx8zLDp3uTc/UCYgm'
+
+    sc = SparkContext.getOrCreate()
+    sc.setLocalProperty("spark.scheduler.pool", "production")
+    # configuration
+
+    ### try miltiple times
+    hadoop_conf = sc._jsc.hadoopConfiguration()
+    hadoop_conf.set("fs.s3n.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
+    hadoop_conf.set("fs.s3n.awsAccessKeyId", ID)
+    hadoop_conf.set("fs.s3n.awsSecretAccessKey", key)
+
+    spark_session = SparkSession(sc)
     # Load data from S3 bucket
-    lines = sc.textFile("s3://autodataprep2/", 1)
-    # Calculate word counts
-    counts = lines.flatMap(lambda x: x.split(' ')) \
-                  .map(lambda x: (x, 1)) \
-                  .reduceByKey(add)
-    output = counts.collect()
-    # Print word counts
-    for (word, count) in output:
-        print("%s: %i" % (word, count))
-    # Save word counts in S3 bucket
-    counts.saveAsTextFile("s3://autodataprep2/results")
-    # Stop SparkContext
-    sc.stop()
+    df = spark_session.read.csv("s3://autodataprep2/3alan_data_clean.csv", inferSchema=True, header=True)
+    df.write.parquet("s3://autodataprep2/test.parquet", mode="overwrite")
+    sc.close()
