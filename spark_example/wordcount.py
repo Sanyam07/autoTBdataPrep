@@ -1,0 +1,40 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+from pyspark import SparkContext
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    # Start SparkContext
+    ID = 'AKIAIDRK5CMIJYQWXCBQ'
+    key = 'WNQ/TV3toWjx8mvFn6GW8sQLx8zLDp3uTc/UCYgm'
+
+    sc = SparkContext.getOrCreate()
+    sc.setLocalProperty("spark.scheduler.pool", "production")
+    # configuration
+
+    ### try miltiple times
+    hadoop_conf = sc._jsc.hadoopConfiguration()
+    hadoop_conf.set("fs.s3n.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
+    hadoop_conf.set("fs.s3n.awsAccessKeyId", ID)
+    hadoop_conf.set("fs.s3n.awsSecretAccessKey", key)
+
+    spark_session = SparkSession(sc)
+    # Load data from S3 bucket
+    df = spark_session.read.csv("s3://autodataprep2/3alan_data_clean.csv", inferSchema=True, header=True)
+    df.write.parquet("s3://autodataprep2/test.parquet", mode="overwrite")
+    sc.close()
