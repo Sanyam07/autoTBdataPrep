@@ -66,7 +66,7 @@ class DeployPySparkScriptOnAws(object):
         self.step_spark_submit(c,"None")                     # Add step 'spark-submit'
         # self.describe_status_until_terminated(c)            # Describe cluster status until terminated
         # self.remove_temp_files(s3)                          # Remove files from the temporary files S3 bucket
-     
+
     def generate_job_name(self):
         self.job_name = "{}.{}.{}".format(self.app_name,
                                           self.user,
